@@ -1,0 +1,27 @@
+Resumo: blog em PHP para a Parca Corp
+
+Contexto
+- O site institucional atual pode continuar como esta.
+- E viavel adicionar um blog em PHP sem refazer todo o projeto.
+
+Caminho recomendado
+- Manter o site institucional como base.
+- Criar uma pasta `blog/`.
+- Fazer um `index.php` para listar os posts.
+- Criar paginas individuais para cada post.
+- Reaproveitar o mesmo CSS, header e footer do site.
+
+Versao simples para comecar
+- Posts em arquivos `.php` ou `.html`.
+- Ou posts lidos de uma pasta/array.
+- Sem banco de dados no inicio.
+
+Evolucao futura
+- Painel de cadastro.
+- Banco de dados.
+- Categorias.
+- Busca.
+- SEO melhor.
+
+Conclusao
+- Sim, e bem viavel adicionar um blog em PHP nessa estrutura.
