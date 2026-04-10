@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://parcacorp.com.br/sitemap.xml
