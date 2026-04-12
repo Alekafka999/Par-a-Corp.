@@ -435,6 +435,14 @@ h2 em{
   margin-bottom:4rem;
 }
 
+.projects-header h2{
+  margin-bottom:0.6rem;
+}
+
+.projects-header .lead{
+  margin-top:0;
+}
+
 .projects-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
