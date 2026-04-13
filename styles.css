@@ -873,6 +873,297 @@ footer{
   margin-top:1.6rem;
 }
 
+/* Investor pages */
+.investor-hero{
+  position:relative;
+  overflow:hidden;
+}
+
+.investor-hero-media{
+  position:relative;
+  z-index:1;
+  margin-bottom:2.5rem;
+}
+
+.investor-hero-img{
+  display:block;
+  width:100%;
+  max-height:360px;
+  object-fit:cover;
+  object-position:center 40%;
+  border-radius:22px;
+  box-shadow:0 28px 80px rgba(0,0,0,0.28);
+}
+
+.investor-hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(224,120,40,0.16) 0%,transparent 28%),
+    radial-gradient(circle at 85% 18%,rgba(143,168,194,0.12) 0%,transparent 26%);
+  pointer-events:none;
+}
+
+.investor-hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(320px,0.8fr);
+  gap:2rem;
+  align-items:end;
+}
+
+.investor-hero .page-title{
+  max-width:900px;
+}
+
+.language-switcher{
+  display:flex;
+  gap:0.6rem;
+  margin:0 0 1.35rem;
+}
+
+.language-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:72px;
+  padding:0.45rem 0.85rem;
+  border:1px solid rgba(143,168,194,0.24);
+  border-radius:999px;
+  background:rgba(15,32,53,0.56);
+  text-decoration:none;
+  font-size:0.78rem;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--silver);
+  transition:background 0.2s,border-color 0.2s,color 0.2s;
+}
+
+.language-link:hover{
+  background:rgba(224,120,40,0.12);
+  border-color:rgba(224,120,40,0.3);
+  color:var(--cream);
+}
+
+.language-link.is-active{
+  border-color:rgba(240,160,80,0.36);
+  background:rgba(224,120,40,0.18);
+  color:var(--cream);
+}
+
+.investor-panel{
+  padding:1.6rem;
+  background:linear-gradient(180deg,rgba(15,32,53,0.92) 0%,rgba(9,19,33,0.96) 100%);
+  border:1px solid rgba(240,160,80,0.18);
+  border-radius:16px;
+  box-shadow:0 24px 70px rgba(0,0,0,0.22);
+}
+
+.investor-panel-tag{
+  display:inline-block;
+  margin-bottom:1rem;
+  font-size:0.76rem;
+  font-weight:500;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--amber);
+}
+
+.investor-panel-list{
+  display:flex;
+  flex-direction:column;
+  gap:0.95rem;
+  list-style:none;
+}
+
+.investor-panel-list li{
+  padding-bottom:0.95rem;
+  border-bottom:1px solid rgba(143,168,194,0.1);
+  color:var(--silver);
+  line-height:1.7;
+}
+
+.investor-panel-list li:last-child{
+  padding-bottom:0;
+  border-bottom:none;
+}
+
+.investor-panel-list strong{
+  color:var(--cream);
+  font-weight:500;
+}
+
+.signal-strip{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1rem;
+  margin-top:2rem;
+}
+
+.signal-item{
+  padding:1rem 1.1rem;
+  background:rgba(15,32,53,0.62);
+  border:1px solid rgba(143,168,194,0.12);
+  border-radius:12px;
+}
+
+.signal-label{
+  display:block;
+  margin-bottom:0.45rem;
+  font-size:0.72rem;
+  font-weight:500;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--amber2);
+}
+
+.signal-item p{
+  color:var(--silver);
+  line-height:1.65;
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,360px);
+  gap:2rem;
+  align-items:end;
+  margin-bottom:2.4rem;
+}
+
+.section-note{
+  padding:1rem 1.1rem;
+  border-left:2px solid var(--amber);
+  background:rgba(224,120,40,0.08);
+  color:var(--silver);
+  line-height:1.7;
+}
+
+.insight-grid,
+.pillar-grid,
+.path-grid,
+.partner-grid{
+  display:grid;
+  gap:1.4rem;
+}
+
+.insight-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.pillar-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.path-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.partner-grid{
+  grid-template-columns:1.2fr 0.8fr;
+}
+
+.insight-card,
+.pillar-card,
+.path-card,
+.partner-card{
+  padding:1.6rem;
+  background:var(--card);
+  border:1px solid rgba(143,168,194,0.1);
+  border-radius:12px;
+}
+
+.insight-card h3,
+.pillar-card h3,
+.path-card h3,
+.partner-card h3{
+  margin-bottom:0.8rem;
+  font-size:1.2rem;
+  font-weight:400;
+  color:var(--cream);
+}
+
+.insight-card p,
+.pillar-card p,
+.path-card p,
+.partner-card p{
+  color:var(--silver);
+  line-height:1.8;
+}
+
+.insight-card strong,
+.partner-card strong{
+  color:var(--amber2);
+  font-weight:500;
+}
+
+.pillar-card{
+  position:relative;
+  overflow:hidden;
+}
+
+.pillar-card::after{
+  content:'';
+  position:absolute;
+  right:-40px;
+  bottom:-40px;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(224,120,40,0.12) 0%,transparent 72%);
+  pointer-events:none;
+}
+
+.card-index{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:2.2rem;
+  height:2.2rem;
+  margin-bottom:1rem;
+  border-radius:999px;
+  border:1px solid rgba(240,160,80,0.22);
+  background:rgba(224,120,40,0.1);
+  font-size:0.82rem;
+  letter-spacing:0.12em;
+  color:var(--amber);
+}
+
+.path-card{
+  min-height:100%;
+}
+
+.path-card .tag{
+  margin-top:1.1rem;
+}
+
+.partner-list{
+  display:flex;
+  flex-direction:column;
+  gap:0.9rem;
+  list-style:none;
+}
+
+.partner-list li{
+  color:var(--silver);
+  line-height:1.75;
+}
+
+.partner-list strong{
+  color:var(--cream);
+  font-weight:500;
+}
+
+.investor-cta{
+  background:
+    radial-gradient(circle at center,rgba(224,120,40,0.08) 0%,transparent 42%),
+    var(--deep);
+}
+
 /* Utilities */
 .back-to-top{
   position:fixed;
@@ -927,6 +1218,14 @@ footer{
   }
 
   .press-grid{grid-template-columns:1fr}
+  .investor-hero-grid,
+  .section-head,
+  .partner-grid,
+  .insight-grid,
+  .pillar-grid,
+  .path-grid,
+  .signal-strip{grid-template-columns:1fr}
+  .investor-hero-img{max-height:300px}
   .team-grid{grid-template-columns:repeat(2,1fr)}
   .team-card{grid-column:auto}
   .team-card-top-left,
@@ -965,6 +1264,21 @@ footer{
   .page-title{font-size:clamp(2.35rem,10vw,3.5rem)}
   .page-section{padding-bottom:4rem}
   .press-card{padding:1.4rem}
+  .investor-panel,
+  .insight-card,
+  .pillar-card,
+  .path-card,
+  .partner-card,
+  .signal-item{padding:1.3rem}
+  .language-switcher{
+    flex-wrap:wrap;
+    margin-bottom:1.1rem;
+  }
+  .investor-hero-media{margin-bottom:1.8rem}
+  .investor-hero-img{
+    max-height:220px;
+    border-radius:14px;
+  }
   .scroll-hint{display:none}
 
   .back-to-top{
