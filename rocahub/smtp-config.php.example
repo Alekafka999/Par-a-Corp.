@@ -1,0 +1,13 @@
+<?php
+
+return [
+    'host' => 'mail.parcacorp.com.br',
+    'port' => 465,
+    'security' => 'ssl',
+    'username' => 'rocahub@parcacorp.com.br',
+    'password' => 'COLOQUE_AQUI_A_SENHA_DA_CAIXA',
+    'from_email' => 'rocahub@parcacorp.com.br',
+    'from_name' => 'Parca Corp',
+    'to_email' => 'rocahub@parcacorp.com.br',
+    'timeout' => 20,
+];

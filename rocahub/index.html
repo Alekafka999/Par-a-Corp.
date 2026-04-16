@@ -21,7 +21,7 @@
 <meta name="twitter:title" content="Investidores | Ro&ccedil;a Hub | Par&ccedil;a Corp">
 <meta name="twitter:description" content="Ro&ccedil;a Hub &eacute; a frente da Par&ccedil;a Corp voltada a pequenos produtores, com gest&atilde;o simplificada, intelig&ecirc;ncia de mercado e crescimento regional.">
 <meta name="twitter:image" content="https://parcacorp.com.br/favicon.png">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -56,19 +56,68 @@
       <h1 class="page-title">Infraestrutura digital para o pequeno produtor vender melhor, operar melhor e decidir com mais clareza.</h1>
       <p class="page-intro">O Ro&ccedil;a Hub nasce para aproximar pequenos produtores, neg&oacute;cios locais e intelig&ecirc;ncia pr&aacute;tica de mercado em uma experi&ecirc;ncia simples. A tese &eacute; clara: menos fric&ccedil;&atilde;o operacional, mais visibilidade comercial e uma camada digital que respeita a realidade do campo.</p>
       <div class="btn-group">
-        <a href="mailto:contato@parcacorp.com.br?subject=Quero%20receber%20a%20apresenta%C3%A7%C3%A3o%20do%20Ro%C3%A7a%20Hub" class="btn-primary">Receber apresenta&ccedil;&atilde;o</a>
+        <a href="mailto:rocahub@parcacorp.com.br?subject=Quero%20receber%20a%20apresenta%C3%A7%C3%A3o%20do%20Ro%C3%A7a%20Hub" class="btn-primary">Receber apresenta&ccedil;&atilde;o</a>
         <a href="../index.html#projetos" class="btn-ghost">Voltar ao portf&oacute;lio</a>
       </div>
     </div>
 
-    <aside class="investor-panel">
-      <span class="investor-panel-tag">Leitura r&aacute;pida</span>
-      <ul class="investor-panel-list">
-        <li><strong>Est&aacute;gio atual:</strong> produto em desenvolvimento, com tese de posicionamento e estrutura comercial em desenho.</li>
-        <li><strong>Mercado-alvo:</strong> pequenos produtores, neg&oacute;cios locais, redes de abastecimento e parceiros territoriais.</li>
-        <li><strong>Proposta central:</strong> gest&atilde;o simplificada, intelig&ecirc;ncia comercial com IA e conex&otilde;es locais em uma jornada acess&iacute;vel.</li>
-        <li><strong>Capta&ccedil;&atilde;o buscada:</strong> parceiros para capital semente, valida&ccedil;&atilde;o, pilotos e acelera&ccedil;&atilde;o de distribui&ccedil;&atilde;o.</li>
-      </ul>
+    <aside class="investor-panel pilot-panel">
+      <span class="investor-panel-tag">Piloto Ro&ccedil;a Hub</span>
+      <h2 class="pilot-panel-title">Voc&ecirc; &eacute; produtor rural ou feirante de S&atilde;o Jo&atilde;o da Boa Vista ou regi&atilde;o?</h2>
+      <p class="pilot-panel-copy">Estamos selecionando participantes para o piloto do Ro&ccedil;a Hub.</p>
+
+      <form class="interest-form interest-form-compact" id="pilot-interest-form" action="submit-interest.php" method="post" accept-charset="UTF-8">
+        <div class="form-status" id="pilot-form-status" hidden aria-live="polite"></div>
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Nome</span>
+            <input type="text" name="nome" autocomplete="name" required>
+          </label>
+
+          <label class="form-field">
+            <span>E-mail</span>
+            <input type="email" name="email" autocomplete="email">
+          </label>
+
+          <label class="form-field">
+            <span>WhatsApp</span>
+            <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+          </label>
+
+          <label class="form-field">
+            <span>Cidade</span>
+            <input type="text" name="cidade" autocomplete="address-level2">
+          </label>
+
+          <fieldset class="form-field form-field-full role-field">
+            <legend>Voc&ecirc; &eacute;:</legend>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="perfil" value="Produtor">
+                <span>Produtor</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="perfil" value="Feirante">
+                <span>Feirante</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="perfil" value="Outro">
+                <span>Outro</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="form-field form-field-full">
+            <span>Deixar coment&aacute;rio</span>
+            <textarea name="comentario" rows="4" placeholder="Conte um pouco sobre seu contexto, interesse ou necessidade."></textarea>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Quero participar do piloto</button>
+          <p class="form-helper">Seu envio vai direto para nossa caixa de entrada. Se preferir, voc&ecirc; ainda pode falar com a gente pelo WhatsApp no rodap&eacute;.</p>
+        </div>
+      </form>
     </aside>
   </div>
 
@@ -265,7 +314,7 @@
   <p>Podemos compartilhar a apresenta&ccedil;&atilde;o do projeto, detalhar o momento atual do Ro&ccedil;a Hub e abrir uma conversa sobre pilotos, parceria ou investimento.</p>
   <div class="btn-group cta-actions">
     <a href="https://api.whatsapp.com/send?phone=5519989804249&amp;text=Ol%C3%A1%2C%20quero%20conhecer%20melhor%20o%20Ro%C3%A7a%20Hub." class="btn-primary" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
-    <a href="mailto:contato@parcacorp.com.br?subject=Conversa%20sobre%20o%20Ro%C3%A7a%20Hub" class="btn-ghost">Enviar e-mail</a>
+    <a href="mailto:rocahub@parcacorp.com.br?subject=Conversa%20sobre%20o%20Ro%C3%A7a%20Hub" class="btn-ghost">Enviar e-mail</a>
   </div>
 </section>
 
@@ -301,7 +350,7 @@
   <div class="footer-col">
     <h4>Contato</h4>
     <ul>
-      <li><a href="mailto:contato@parcacorp.com.br">contato@parcacorp.com.br</a></li>
+      <li><a href="mailto:rocahub@parcacorp.com.br">rocahub@parcacorp.com.br</a></li>
       <li><a href="https://api.whatsapp.com/send?phone=5519989804249&amp;text=Ol%C3%A1%2C%20quero%20falar%20sobre%20o%20Ro%C3%A7a%20Hub." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
       <li><a href="http://lattes.cnpq.br/6451096938311631" target="_blank" rel="noopener noreferrer">Lattes</a></li>
       <li><a href="../index.html#captacao">Capta&ccedil;&atilde;o Par&ccedil;a</a></li>
@@ -312,6 +361,38 @@
     <span>Ro&ccedil;a Hub &middot; Agro local, intelig&ecirc;ncia pr&aacute;tica e crescimento com densidade regional.</span>
   </div>
 </footer>
+
+<script>
+const pilotFormStatus = document.getElementById('pilot-form-status');
+
+if (pilotFormStatus) {
+  const params = new URLSearchParams(window.location.search);
+  const formState = params.get('form');
+
+  if (formState === 'success') {
+    pilotFormStatus.hidden = false;
+    pilotFormStatus.className = 'form-status is-success';
+    pilotFormStatus.textContent = 'Recebemos seus dados com sucesso. Vamos analisar seu perfil e entrar em contato.';
+  } else if (formState === 'error') {
+    const reason = params.get('reason');
+    const messages = {
+      missing: 'Faltaram alguns campos obrigat\u00f3rios. Revise o formul\u00e1rio e tente novamente.',
+      invalid: 'Alguns dados parecem inv\u00e1lidos. Confira o e-mail e tente novamente.',
+      smtp_config: 'O envio por e-mail ainda nao foi configurado no servidor. Seus dados podem ser recuperados no backup local.',
+      send_saved: 'Seus dados foram registrados, mas o e-mail de notifica\u00e7\u00e3o falhou. Podemos recuperar sua submiss\u00e3o no servidor.',
+      send: 'N\u00e3o conseguimos concluir o envio agora. Tente de novo em instantes ou use o WhatsApp no rodap\u00e9.'
+    };
+
+    pilotFormStatus.hidden = false;
+    pilotFormStatus.className = 'form-status is-error';
+    pilotFormStatus.textContent = messages[reason] || messages.send;
+  }
+
+  if (formState) {
+    window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+  }
+}
+</script>
 
 </body>
 </html>
