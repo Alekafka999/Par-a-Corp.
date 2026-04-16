@@ -241,6 +241,32 @@ function send_via_smtp(array $config, string $subject, string $body, ?string $re
     }
 }
 
+function send_via_php_mail(array $config, string $subject, string $body, ?string $replyTo = null): bool
+{
+    if ($config['to_email'] === '' || $config['from_email'] === '') {
+        throw new RuntimeException('Configuracao de e-mail incompleta.');
+    }
+
+    $headers = [
+        'From: ' . $config['from_name'] . ' <' . $config['from_email'] . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+    ];
+
+    if ($replyTo !== null && $replyTo !== '') {
+        $headers[] = 'Reply-To: ' . $replyTo;
+    }
+
+    $sent = mail($config['to_email'], $subject, $body, implode("\r\n", $headers));
+
+    if (!$sent) {
+        throw new RuntimeException('A funcao mail() retornou falha.');
+    }
+
+    return true;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect_with_status('error', 'send');
 }
@@ -292,19 +318,26 @@ $message = implode("\n", [
 ]);
 
 if ($smtpConfig['password'] === '' || $smtpConfig['username'] === '' || $smtpConfig['host'] === '' || $smtpConfig['to_email'] === '') {
-    append_smtp_log('Configuracao SMTP incompleta.', [
-        'host' => $smtpConfig['host'],
-        'port' => $smtpConfig['port'],
-        'security' => $smtpConfig['security'],
-        'username' => $smtpConfig['username'],
-        'to_email' => $smtpConfig['to_email'],
-        'nome' => $nome,
-        'whatsapp' => $whatsapp,
-        'ip' => $ip,
-    ]);
+    try {
+        if (send_via_php_mail($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null)) {
+            redirect_with_status('success');
+        }
+    } catch (Throwable $exception) {
+        append_smtp_log('Configuracao SMTP incompleta e fallback mail() falhou.', [
+            'error' => $exception->getMessage(),
+            'host' => $smtpConfig['host'],
+            'port' => $smtpConfig['port'],
+            'security' => $smtpConfig['security'],
+            'username' => $smtpConfig['username'],
+            'to_email' => $smtpConfig['to_email'],
+            'nome' => $nome,
+            'whatsapp' => $whatsapp,
+            'ip' => $ip,
+        ]);
 
-    if ($saved) {
-        redirect_with_status('error', 'smtp_config');
+        if ($saved) {
+            redirect_with_status('success');
+        }
     }
 
     redirect_with_status('error', 'send');
@@ -330,15 +363,30 @@ try {
         'ip' => $ip,
     ]);
 
-    if ($saved) {
-        redirect_with_status('error', 'send_saved');
+    try {
+        if (send_via_php_mail($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null)) {
+            redirect_with_status('success');
+        }
+    } catch (Throwable $mailException) {
+        append_smtp_log('Fallback mail() tambem falhou.', [
+            'error' => $mailException->getMessage(),
+            'to_email' => $smtpConfig['to_email'],
+            'nome' => $nome,
+            'email' => $emailHeader !== '' ? $emailHeader : 'Nao informado',
+            'whatsapp' => $whatsapp,
+            'ip' => $ip,
+        ]);
+
+        if ($saved) {
+            redirect_with_status('success');
+        }
     }
 
     redirect_with_status('error', 'send');
 }
 
 if ($saved) {
-    redirect_with_status('error', 'send_saved');
+    redirect_with_status('success');
 }
 
 redirect_with_status('error', 'send');
