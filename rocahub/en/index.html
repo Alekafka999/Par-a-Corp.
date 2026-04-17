@@ -56,7 +56,7 @@
       <h1 class="page-title">Digital infrastructure for small producers to sell better, operate better, and make clearer decisions.</h1>
       <p class="page-intro">Ro&ccedil;a Hub is designed to connect small producers, local businesses, and practical market intelligence through a simple experience. The thesis is straightforward: less operational friction, more commercial visibility, and a digital layer that respects the reality of the field.</p>
       <div class="btn-group">
-        <a href="https://www.parcacorp.com.br/rocahub/Roca-Hub.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer">Request Presentation</a>
+        <button type="button" class="btn-primary presentation-download-trigger" id="open-presentation-form" aria-haspopup="dialog">Request Presentation</button>
         <a href="../../index.html#projetos" class="btn-ghost">Back to Portfolio</a>
       </div>
     </div>
@@ -91,6 +91,56 @@
     </div>
   </div>
 </section>
+
+<dialog class="presentation-modal" id="presentation-modal" aria-labelledby="presentation-modal-title">
+  <div class="presentation-modal-panel">
+    <button type="button" class="presentation-modal-close" id="close-presentation-form" aria-label="Close form">&times;</button>
+    <span class="investor-panel-tag">Ro&ccedil;a Hub Presentation</span>
+    <h2 class="pilot-panel-title" id="presentation-modal-title">Receive the institutional PDF</h2>
+    <p class="pilot-panel-copy">Fill in your details to access the Ro&ccedil;a Hub presentation.</p>
+
+    <form class="interest-form interest-form-compact presentation-download-form" id="presentation-download-form" action="/rocahub/submit-interest.php" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="lead_goal" value="presentation_download">
+      <input type="hidden" name="return_page" value="en/index.html">
+      <div class="form-status" id="presentation-form-status" hidden aria-live="polite"></div>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Name</span>
+          <input type="text" name="nome" autocomplete="name" required>
+        </label>
+
+        <label class="form-field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+
+        <label class="form-field">
+          <span>WhatsApp</span>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+        </label>
+
+        <label class="form-field">
+          <span>Company</span>
+          <input type="text" name="cidade" autocomplete="organization" placeholder="Company or city" required>
+        </label>
+
+        <label class="form-field form-field-full">
+          <span>Profile</span>
+          <input type="text" name="perfil" placeholder="Investor, partner, producer, press..." required>
+        </label>
+
+        <label class="form-field form-field-full">
+          <span>Comments</span>
+          <textarea name="comentario" rows="3" placeholder="Share the reason for your interest." required></textarea>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Download Presentation</button>
+      </div>
+    </form>
+  </div>
+</dialog>
 
 <section class="page-section" id="opportunity">
   <div class="page-shell">
@@ -312,6 +362,73 @@
     <span>Ro&ccedil;a Hub &middot; Local agriculture, practical intelligence, and growth with regional density.</span>
   </div>
 </footer>
+
+<script>
+const presentationModal = document.getElementById('presentation-modal');
+const openPresentationForm = document.getElementById('open-presentation-form');
+const closePresentationForm = document.getElementById('close-presentation-form');
+const presentationFormStatus = document.getElementById('presentation-form-status');
+const statusMessages = {
+  missing: 'Some required fields are missing. Review the form and try again.',
+  invalid: 'Some information looks invalid. Check the email and try again.',
+  smtp_config: 'Email sending is not configured on the server yet. Your data may be recovered from the local backup.',
+  send_saved: 'Your data was registered, but the email notification failed. We can recover your submission on the server.',
+  send: 'We could not complete the submission right now. Try again shortly or use WhatsApp in the footer.'
+};
+
+const openModal = () => {
+  if (!presentationModal) {
+    return;
+  }
+
+  if (typeof presentationModal.showModal === 'function') {
+    presentationModal.showModal();
+  } else {
+    presentationModal.setAttribute('open', '');
+  }
+};
+
+const closeModal = () => {
+  if (!presentationModal) {
+    return;
+  }
+
+  if (typeof presentationModal.close === 'function') {
+    presentationModal.close();
+  } else {
+    presentationModal.removeAttribute('open');
+  }
+};
+
+if (openPresentationForm && presentationModal) {
+  openPresentationForm.addEventListener('click', openModal);
+}
+
+if (closePresentationForm) {
+  closePresentationForm.addEventListener('click', closeModal);
+}
+
+if (presentationModal) {
+  presentationModal.addEventListener('click', (event) => {
+    if (event.target === presentationModal) {
+      closeModal();
+    }
+  });
+}
+
+const params = new URLSearchParams(window.location.search);
+const downloadState = params.get('download');
+
+if (downloadState === 'error' && presentationFormStatus) {
+  const reason = params.get('reason');
+
+  presentationFormStatus.hidden = false;
+  presentationFormStatus.className = 'form-status is-error';
+  presentationFormStatus.textContent = statusMessages[reason] || statusMessages.send;
+  openModal();
+  window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+}
+</script>
 
 </body>
 </html>

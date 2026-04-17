@@ -55,7 +55,7 @@
         <p>Adaptado &agrave; realidade do pequeno neg&oacute;cio, evolui com o usu&aacute;rio em uma estrutura modular que transforma o caos em opera&ccedil;&atilde;o organizada.</p>
       </div>
       <div class="btn-group">
-        <a href="https://api.whatsapp.com/send?phone=5519989804249&amp;text=Ol%C3%A1%2C%20quero%20receber%20a%20apresenta%C3%A7%C3%A3o%20do%20MEiStation." class="btn-primary" target="_blank" rel="noopener noreferrer">Receber apresenta&ccedil;&atilde;o</a>
+        <button type="button" class="btn-primary presentation-download-trigger" id="open-presentation-form" aria-haspopup="dialog">Receber apresenta&ccedil;&atilde;o</button>
         <a href="../index.html#projetos" class="btn-ghost">Voltar ao portf&oacute;lio</a>
       </div>
     </div>
@@ -75,7 +75,7 @@
 
           <label class="form-field">
             <span>E-mail</span>
-            <input type="email" name="email" autocomplete="email">
+            <input type="email" name="email" autocomplete="email" required>
           </label>
 
           <label class="form-field">
@@ -85,26 +85,26 @@
 
           <label class="form-field">
             <span>Cidade</span>
-            <input type="text" name="cidade" autocomplete="address-level2">
+            <input type="text" name="cidade" autocomplete="address-level2" required>
           </label>
 
           <fieldset class="form-field form-field-full role-field">
             <legend>Voc&ecirc; &eacute;:</legend>
             <div class="radio-group">
               <label class="radio-option">
-                <input type="radio" name="perfil" value="MEI">
+                <input type="radio" name="perfil" value="MEI" required>
                 <span>MEI</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="perfil" value="Pequeno empresario">
+                <input type="radio" name="perfil" value="Pequeno empresario" required>
                 <span>Pequeno empres&aacute;rio</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="perfil" value="Autonomo">
+                <input type="radio" name="perfil" value="Autonomo" required>
                 <span>Aut&ocirc;nomo</span>
               </label>
               <label class="radio-option">
-                <input type="radio" name="perfil" value="Outro">
+                <input type="radio" name="perfil" value="Outro" required>
                 <span>Outro</span>
               </label>
             </div>
@@ -118,7 +118,7 @@
 
           <label class="form-field form-field-full">
             <span>Coment&aacute;rios</span>
-            <textarea name="comentarios" rows="3" placeholder="Se quiser, deixe mais algum coment&aacute;rio, observa&ccedil;&atilde;o ou pergunta."></textarea>
+            <textarea name="comentarios" rows="3" placeholder="Deixe mais algum coment&aacute;rio, observa&ccedil;&atilde;o ou pergunta." required></textarea>
           </label>
         </div>
 
@@ -233,6 +233,55 @@
     </div>
   </div>
 </section>
+
+<dialog class="presentation-modal" id="presentation-modal" aria-labelledby="presentation-modal-title">
+  <div class="presentation-modal-panel">
+    <button type="button" class="presentation-modal-close" id="close-presentation-form" aria-label="Fechar formul&aacute;rio">&times;</button>
+    <span class="investor-panel-tag">Apresenta&ccedil;&atilde;o MEiStation</span>
+    <h2 class="pilot-panel-title" id="presentation-modal-title">Receba o PDF institucional</h2>
+    <p class="pilot-panel-copy">Preencha seus dados para acessar a apresenta&ccedil;&atilde;o do MEiStation.</p>
+
+    <form class="interest-form interest-form-compact presentation-download-form" id="presentation-download-form" action="/meistation/submit-interest.php" method="post" accept-charset="UTF-8">
+      <input type="hidden" name="lead_goal" value="presentation_download">
+      <div class="form-status" id="presentation-form-status" hidden aria-live="polite"></div>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Nome</span>
+          <input type="text" name="nome" autocomplete="name" required>
+        </label>
+
+        <label class="form-field">
+          <span>E-mail</span>
+          <input type="email" name="email" autocomplete="email" required>
+        </label>
+
+        <label class="form-field">
+          <span>WhatsApp</span>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+        </label>
+
+        <label class="form-field">
+          <span>Empresa</span>
+          <input type="text" name="cidade" autocomplete="organization" placeholder="Empresa ou cidade" required>
+        </label>
+
+        <label class="form-field form-field-full">
+          <span>Perfil</span>
+          <input type="text" name="perfil" placeholder="Investidor, parceiro, imprensa, empreendedor..." required>
+        </label>
+
+        <label class="form-field form-field-full">
+          <span>Coment&aacute;rios</span>
+          <textarea name="comentarios" rows="3" placeholder="Conte rapidamente o motivo do interesse." required></textarea>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Baixar apresenta&ccedil;&atilde;o</button>
+      </div>
+    </form>
+  </div>
+</dialog>
 
 <section class="page-section">
   <div class="page-shell">
@@ -380,10 +429,62 @@
 
 <script>
 const pilotFormStatus = document.getElementById('pilot-form-status');
+const presentationModal = document.getElementById('presentation-modal');
+const openPresentationForm = document.getElementById('open-presentation-form');
+const closePresentationForm = document.getElementById('close-presentation-form');
+const presentationFormStatus = document.getElementById('presentation-form-status');
+const statusMessages = {
+  missing: 'Faltaram alguns campos obrigatorios. Revise o formulario e tente novamente.',
+  invalid: 'Alguns dados parecem invalidos. Confira o e-mail e tente novamente.',
+  smtp_config: 'O envio por e-mail ainda nao foi configurado no servidor. Seus dados podem ser recuperados no backup local.',
+  send_saved: 'Seus dados foram registrados, mas o e-mail de notificacao falhou. Podemos recuperar sua submissao no servidor.',
+  send: 'Nao conseguimos concluir o envio agora. Tente de novo em instantes ou use o WhatsApp no rodape.'
+};
+
+const openModal = () => {
+  if (!presentationModal) {
+    return;
+  }
+
+  if (typeof presentationModal.showModal === 'function') {
+    presentationModal.showModal();
+  } else {
+    presentationModal.setAttribute('open', '');
+  }
+};
+
+const closeModal = () => {
+  if (!presentationModal) {
+    return;
+  }
+
+  if (typeof presentationModal.close === 'function') {
+    presentationModal.close();
+  } else {
+    presentationModal.removeAttribute('open');
+  }
+};
+
+if (openPresentationForm && presentationModal) {
+  openPresentationForm.addEventListener('click', openModal);
+}
+
+if (closePresentationForm) {
+  closePresentationForm.addEventListener('click', closeModal);
+}
+
+if (presentationModal) {
+  presentationModal.addEventListener('click', (event) => {
+    if (event.target === presentationModal) {
+      closeModal();
+    }
+  });
+}
 
 if (pilotFormStatus) {
   const params = new URLSearchParams(window.location.search);
   const formState = params.get('form');
+  const downloadState = params.get('download');
 
   if (formState === 'success') {
     pilotFormStatus.hidden = false;
@@ -391,20 +492,22 @@ if (pilotFormStatus) {
     pilotFormStatus.textContent = 'Recebemos seus dados com sucesso. Vamos analisar seu perfil e entrar em contato.';
   } else if (formState === 'error') {
     const reason = params.get('reason');
-    const messages = {
-      missing: 'Faltaram alguns campos obrigatorios. Revise o formulario e tente novamente.',
-      invalid: 'Alguns dados parecem invalidos. Confira o e-mail e tente novamente.',
-      smtp_config: 'O envio por e-mail ainda nao foi configurado no servidor. Seus dados podem ser recuperados no backup local.',
-      send_saved: 'Seus dados foram registrados, mas o e-mail de notificacao falhou. Podemos recuperar sua submissao no servidor.',
-      send: 'Nao conseguimos concluir o envio agora. Tente de novo em instantes ou use o WhatsApp no rodape.'
-    };
 
     pilotFormStatus.hidden = false;
     pilotFormStatus.className = 'form-status is-error';
-    pilotFormStatus.textContent = messages[reason] || messages.send;
+    pilotFormStatus.textContent = statusMessages[reason] || statusMessages.send;
   }
 
-  if (formState) {
+  if (downloadState === 'error' && presentationFormStatus) {
+    const reason = params.get('reason');
+
+    presentationFormStatus.hidden = false;
+    presentationFormStatus.className = 'form-status is-error';
+    presentationFormStatus.textContent = statusMessages[reason] || statusMessages.send;
+    openModal();
+  }
+
+  if (formState || downloadState) {
     window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
   }
 }

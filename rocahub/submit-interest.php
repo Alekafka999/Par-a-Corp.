@@ -1,18 +1,49 @@
 <?php
 declare(strict_types=1);
 
-function redirect_with_status(string $status, string $reason = ''): void
+const PRESENTATION_PDF_URL = 'https://www.parcacorp.com.br/rocahub/Roca-Hub.pdf';
+
+function clean_return_page(string $value): string
 {
-    $location = 'index.html?form=' . rawurlencode($status);
+    return $value === 'en/index.html' ? 'en/index.html' : 'index.html';
+}
+
+function redirect_with_status(string $status, string $reason = '', string $context = 'form', string $anchor = 'pilot-interest-form', string $page = 'index.html'): void
+{
+    $location = clean_return_page($page) . '?' . rawurlencode($context) . '=' . rawurlencode($status);
 
     if ($reason !== '') {
         $location .= '&reason=' . rawurlencode($reason);
     }
 
-    $location .= '#pilot-interest-form';
+    $location .= '#' . $anchor;
 
     header('Location: ' . $location, true, 303);
     exit;
+}
+
+function redirect_to_presentation(): void
+{
+    header('Location: ' . PRESENTATION_PDF_URL, true, 303);
+    exit;
+}
+
+function redirect_success(bool $isPresentationDownload, string $returnPage = 'index.html'): void
+{
+    if ($isPresentationDownload) {
+        redirect_to_presentation();
+    }
+
+    redirect_with_status('success', '', 'form', 'pilot-interest-form', $returnPage);
+}
+
+function redirect_error(bool $isPresentationDownload, string $reason, string $returnPage = 'index.html'): void
+{
+    if ($isPresentationDownload) {
+        redirect_with_status('error', $reason, 'download', 'presentation-download-form', $returnPage);
+    }
+
+    redirect_with_status('error', $reason, 'form', 'pilot-interest-form', $returnPage);
 }
 
 function clean_text(string $value): string
@@ -45,6 +76,41 @@ function save_submission(array $data): bool
 
     if (filesize($file) === 0) {
         fputcsv($handle, ['timestamp', 'nome', 'email', 'whatsapp', 'cidade', 'perfil', 'comentario', 'ip']);
+    }
+
+    $written = fputcsv($handle, [
+        date('c'),
+        $data['nome'],
+        $data['email'],
+        $data['whatsapp'],
+        $data['cidade'],
+        $data['perfil'],
+        $data['comentario'],
+        $data['ip'],
+    ]);
+
+    fclose($handle);
+
+    return $written !== false;
+}
+
+function save_presentation_download(array $data): bool
+{
+    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+
+    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+        return false;
+    }
+
+    $file = $directory . DIRECTORY_SEPARATOR . 'presentation-downloads.csv';
+    $handle = fopen($file, 'ab');
+
+    if ($handle === false) {
+        return false;
+    }
+
+    if (filesize($file) === 0) {
+        fputcsv($handle, ['timestamp', 'nome', 'email', 'whatsapp', 'empresa_ou_cidade', 'perfil', 'comentario', 'ip']);
     }
 
     $written = fputcsv($handle, [
@@ -277,13 +343,34 @@ $whatsapp = clean_text((string) ($_POST['whatsapp'] ?? ''));
 $cidade = clean_text((string) ($_POST['cidade'] ?? ''));
 $perfil = clean_text((string) ($_POST['perfil'] ?? ''));
 $comentario = trim((string) ($_POST['comentario'] ?? ''));
+$leadGoal = clean_text((string) ($_POST['lead_goal'] ?? 'pilot_interest'));
+$isPresentationDownload = $leadGoal === 'presentation_download';
+$returnPage = clean_return_page((string) ($_POST['return_page'] ?? ''));
 
-if ($nome === '' || $whatsapp === '') {
-    redirect_with_status('error', 'missing');
+if ($isPresentationDownload && (
+    $nome === '' ||
+    $email === '' ||
+    $whatsapp === '' ||
+    $cidade === '' ||
+    $perfil === '' ||
+    $comentario === ''
+)) {
+    redirect_error(true, 'missing', $returnPage);
+}
+
+if (!$isPresentationDownload && (
+    $nome === '' ||
+    $email === '' ||
+    $whatsapp === '' ||
+    $cidade === '' ||
+    $perfil === '' ||
+    $comentario === ''
+)) {
+    redirect_error(false, 'missing', $returnPage);
 }
 
 if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    redirect_with_status('error', 'invalid');
+    redirect_error($isPresentationDownload, 'invalid', $returnPage);
 }
 
 $emailHeader = str_replace(["\r", "\n"], '', $email);
@@ -291,36 +378,65 @@ $safeComment = trim(str_replace("\r", '', $comentario));
 $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'indisponivel');
 $smtpConfig = load_smtp_config();
 
-$saved = save_submission([
-    'nome' => $nome,
-    'email' => $emailHeader,
-    'whatsapp' => $whatsapp,
-    'cidade' => $cidade,
-    'perfil' => $perfil,
-    'comentario' => $safeComment,
-    'ip' => $ip,
-]);
+if ($isPresentationDownload) {
+    $saved = save_presentation_download([
+        'nome' => $nome,
+        'email' => $emailHeader,
+        'whatsapp' => $whatsapp,
+        'cidade' => $cidade,
+        'perfil' => $perfil,
+        'comentario' => $safeComment,
+        'ip' => $ip,
+    ]);
 
-$subject = encode_subject('Roca Hub - Interesse no piloto');
-$message = implode("\n", [
-    'Novo interesse no piloto do Roca Hub',
-    '',
-    'Nome: ' . $nome,
-    'E-mail: ' . ($emailHeader !== '' ? $emailHeader : 'Nao informado'),
-    'WhatsApp: ' . $whatsapp,
-    'Cidade: ' . ($cidade !== '' ? $cidade : 'Nao informada'),
-    'Perfil: ' . ($perfil !== '' ? $perfil : 'Nao informado'),
-    'Comentario:',
-    $safeComment !== '' ? $safeComment : 'Sem comentario.',
-    '',
-    'Origem: https://parcacorp.com.br/rocahub/',
-    'IP: ' . $ip,
-]);
+    $subject = encode_subject('Roca Hub - Download da apresentacao');
+    $message = implode("\n", [
+        'Novo download da apresentacao do Roca Hub',
+        '',
+        'Nome: ' . $nome,
+        'E-mail: ' . $emailHeader,
+        'WhatsApp: ' . ($whatsapp !== '' ? $whatsapp : 'Nao informado'),
+        'Empresa ou cidade: ' . ($cidade !== '' ? $cidade : 'Nao informada'),
+        'Perfil: ' . ($perfil !== '' ? $perfil : 'Nao informado'),
+        'Comentario:',
+        $safeComment !== '' ? $safeComment : 'Sem comentario.',
+        '',
+        'PDF liberado: ' . PRESENTATION_PDF_URL,
+        'Origem: https://parcacorp.com.br/rocahub/',
+        'IP: ' . $ip,
+    ]);
+} else {
+    $saved = save_submission([
+        'nome' => $nome,
+        'email' => $emailHeader,
+        'whatsapp' => $whatsapp,
+        'cidade' => $cidade,
+        'perfil' => $perfil,
+        'comentario' => $safeComment,
+        'ip' => $ip,
+    ]);
+
+    $subject = encode_subject('Roca Hub - Interesse no piloto');
+    $message = implode("\n", [
+        'Novo interesse no piloto do Roca Hub',
+        '',
+        'Nome: ' . $nome,
+        'E-mail: ' . ($emailHeader !== '' ? $emailHeader : 'Nao informado'),
+        'WhatsApp: ' . $whatsapp,
+        'Cidade: ' . ($cidade !== '' ? $cidade : 'Nao informada'),
+        'Perfil: ' . ($perfil !== '' ? $perfil : 'Nao informado'),
+        'Comentario:',
+        $safeComment !== '' ? $safeComment : 'Sem comentario.',
+        '',
+        'Origem: https://parcacorp.com.br/rocahub/',
+        'IP: ' . $ip,
+    ]);
+}
 
 if ($smtpConfig['password'] === '' || $smtpConfig['username'] === '' || $smtpConfig['host'] === '' || $smtpConfig['to_email'] === '') {
     try {
         if (send_via_php_mail($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null)) {
-            redirect_with_status('success');
+            redirect_success($isPresentationDownload, $returnPage);
         }
     } catch (Throwable $exception) {
         append_smtp_log('Configuracao SMTP incompleta e fallback mail() falhou.', [
@@ -336,18 +452,18 @@ if ($smtpConfig['password'] === '' || $smtpConfig['username'] === '' || $smtpCon
         ]);
 
         if ($saved) {
-            redirect_with_status('success');
+            redirect_success($isPresentationDownload, $returnPage);
         }
     }
 
-    redirect_with_status('error', 'send');
+    redirect_error($isPresentationDownload, 'send', $returnPage);
 }
 
 try {
     $sent = send_via_smtp($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null);
 
     if ($sent) {
-        redirect_with_status('success');
+        redirect_success($isPresentationDownload, $returnPage);
     }
 } catch (Throwable $exception) {
     append_smtp_log('Falha no envio SMTP.', [
@@ -365,7 +481,7 @@ try {
 
     try {
         if (send_via_php_mail($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null)) {
-            redirect_with_status('success');
+            redirect_success($isPresentationDownload, $returnPage);
         }
     } catch (Throwable $mailException) {
         append_smtp_log('Fallback mail() tambem falhou.', [
@@ -378,15 +494,15 @@ try {
         ]);
 
         if ($saved) {
-            redirect_with_status('success');
+            redirect_success($isPresentationDownload, $returnPage);
         }
     }
 
-    redirect_with_status('error', 'send');
+    redirect_error($isPresentationDownload, 'send', $returnPage);
 }
 
 if ($saved) {
-    redirect_with_status('success');
+    redirect_success($isPresentationDownload, $returnPage);
 }
 
-redirect_with_status('error', 'send');
+redirect_error($isPresentationDownload, 'send', $returnPage);
