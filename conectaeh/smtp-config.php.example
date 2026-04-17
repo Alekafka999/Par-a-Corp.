@@ -1,0 +1,12 @@
+<?php
+return [
+    'host' => 'mail.parcacorp.com.br',
+    'port' => 465,
+    'security' => 'ssl',
+    'username' => 'conectaeh@parcacorp.com.br',
+    'password' => 'SUA_SENHA_SMTP_AQUI',
+    'from_email' => 'conectaeh@parcacorp.com.br',
+    'from_name' => 'Parca Corp',
+    'to_email' => 'conectaeh@parcacorp.com.br',
+    'timeout' => 20,
+];
