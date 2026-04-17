@@ -1,0 +1,13 @@
+<?php
+
+return [
+    'host' => 'mail.parcacorp.com.br',
+    'port' => 465,
+    'security' => 'ssl',
+    'username' => 'meistation@parcacorp.com.br',
+    'password' => 'COLOQUE_AQUI_A_SENHA_DA_CAIXA',
+    'from_email' => 'meistation@parcacorp.com.br',
+    'from_name' => 'Parca Corp',
+    'to_email' => 'meistation@parcacorp.com.br',
+    'timeout' => 20,
+];

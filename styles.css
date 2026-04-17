@@ -1025,6 +1025,166 @@ footer{
   line-height:1.75;
 }
 
+.meistation-hero .investor-hero-grid{
+  grid-template-columns:minmax(0,1fr) minmax(360px,0.92fr);
+  gap:2.8rem;
+  align-items:stretch;
+}
+
+.meistation-hero-copy{
+  display:flex;
+  flex-direction:column;
+  max-width:720px;
+}
+
+.meistation-hero .page-title{
+  max-width:760px;
+  font-size:clamp(3rem,5.4vw,4.7rem);
+}
+
+.meistation-hero .page-intro{
+  max-width:680px;
+  margin-bottom:0;
+}
+
+.meistation-hero-intro{
+  display:flex;
+  flex-direction:column;
+  gap:0.8rem;
+}
+
+.meistation-hero .btn-group{
+  margin-top:auto;
+  padding-top:2rem;
+}
+
+.meistation-hero .pilot-panel{
+  margin-top:0;
+  padding:1.35rem;
+  gap:0.72rem;
+  border-radius:12px;
+}
+
+.meistation-hero .investor-panel-tag{
+  margin-bottom:0.35rem;
+}
+
+.meistation-hero .pilot-panel-title{
+  font-size:clamp(1.35rem,2.1vw,1.75rem);
+  line-height:1.18;
+}
+
+.meistation-hero .pilot-panel-copy{
+  line-height:1.5;
+}
+
+.meistation-hero .form-grid{
+  grid-template-columns:1fr;
+  gap:1.05rem;
+}
+
+.meistation-hero .form-field{
+  gap:0.4rem;
+}
+
+.meistation-hero .form-field span,
+.meistation-hero .role-field legend{
+  font-size:0.7rem;
+}
+
+.meistation-hero .form-field input,
+.meistation-hero .form-field textarea{
+  padding:0.72rem 0.82rem;
+  border-radius:9px;
+}
+
+.meistation-hero .form-field textarea{
+  min-height:118px;
+}
+
+.meistation-hero textarea[name="comentarios"]{
+  min-height:104px;
+}
+
+.meistation-hero .role-field legend{
+  margin-bottom:0.55rem;
+}
+
+.meistation-hero .radio-group{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0.55rem;
+}
+
+.meistation-hero .radio-option{
+  justify-content:center;
+  gap:0.45rem;
+  padding:0.62rem 0.55rem;
+  min-height:42px;
+  border-radius:999px;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.meistation-hero .radio-option input{
+  width:0.82rem;
+  height:0.82rem;
+}
+
+.meistation-hero .interest-form-compact .form-actions{
+  margin-top:0.9rem;
+}
+
+.meistation-hero .interest-form .btn-primary{
+  width:100%;
+  padding:0.78rem 1rem;
+}
+
+.meistation-partner-head{
+  max-width:940px;
+  margin-bottom:2.2rem;
+  text-align:center;
+}
+
+.meistation-partner-head h2{
+  max-width:860px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:1rem;
+  font-size:clamp(2.25rem,4.4vw,4rem);
+  font-weight:300;
+  line-height:1.08;
+  color:var(--cream);
+}
+
+.meistation-partner-head p:not(.section-tag){
+  max-width:760px;
+  margin-left:auto;
+  margin-right:auto;
+  color:var(--silver);
+  line-height:1.8;
+}
+
+.meistation-partner-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-items:stretch;
+  gap:1.4rem;
+}
+
+.meistation-partner-grid .partner-card{
+  display:flex;
+  flex-direction:column;
+  min-height:288px;
+}
+
+.meistation-partner-grid .partner-list{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  flex:1;
+}
+
 .signal-strip{
   position:relative;
   z-index:1;
@@ -1094,6 +1254,10 @@ footer{
 
 .partner-grid{
   grid-template-columns:1.2fr 0.8fr;
+}
+
+.partner-grid.meistation-partner-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 .insight-card,
@@ -1260,6 +1424,12 @@ footer{
   color:rgba(143,168,194,0.7);
 }
 
+.form-required-note{
+  color:rgba(143,168,194,0.78);
+  font-size:0.82rem;
+  line-height:1.45;
+}
+
 .form-field input:focus,
 .form-field textarea:focus{
   outline:none;
@@ -1410,6 +1580,10 @@ footer{
   .path-grid,
   .signal-strip,
   .form-grid{grid-template-columns:1fr}
+  .meistation-hero .investor-hero-grid,
+  .meistation-partner-grid{grid-template-columns:1fr}
+  .meistation-hero .btn-group{margin-top:1.4rem}
+  .meistation-hero .pilot-panel{margin-top:0}
   .investor-hero-img{max-height:300px}
   .team-grid{grid-template-columns:repeat(2,1fr)}
   .team-card{grid-column:auto}
@@ -1464,6 +1638,10 @@ footer{
     max-height:220px;
     border-radius:14px;
   }
+  .meistation-hero .page-title{font-size:clamp(2.35rem,10vw,3.4rem)}
+  .meistation-hero .pilot-panel{padding:1.1rem}
+  .meistation-hero .radio-group{grid-template-columns:1fr}
+  .meistation-hero .radio-option{justify-content:flex-start}
   .scroll-hint{display:none}
 
   .back-to-top{
