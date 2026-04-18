@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'from_email' => 'arthunt@parcacorp.com.br',
+    'from_name' => 'Parca Corp',
+    'to_email' => 'arthunt@parcacorp.com.br',
+];
