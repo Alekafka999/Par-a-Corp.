@@ -44,6 +44,40 @@
   box-shadow:0 28px 80px rgba(0,0,0,0.32);
 }
 
+.contaeh-hero-frame{
+  position:relative;
+  z-index:1;
+  width:1200px;
+  max-width:90vw;
+  margin:0 auto;
+}
+
+.contaeh-hero .contaeh-hero-frame .contaeh-hero-img{
+  width:100%;
+  max-width:100%;
+}
+
+.contaeh-hero .contaeh-hero-frame .page-title{
+  max-width:940px;
+  margin:2.2rem auto 0;
+  font-size:4.45rem;
+  line-height:1;
+  text-align:center;
+}
+
+.contaeh-hero-subtitle{
+  max-width:720px;
+  margin:1.1rem auto 0;
+  color:#fff;
+  font-size:1.22rem;
+  line-height:1.55;
+  text-align:center;
+}
+
+.contaeh-hero-subtitle strong{
+  font-weight:800;
+}
+
 .contaeh-hero-overlay{
   display:none;
 }
@@ -278,7 +312,7 @@
 .contaeh-signal-strip{
   position:relative;
   z-index:2;
-  margin-top:2.2rem;
+  margin-top:3.8rem;
 }
 
 .contaeh-signal-strip .signal-item{
@@ -317,6 +351,24 @@
 .contaeh-page .tag{
   border-color:rgba(242,68,164,0.24);
   background:rgba(242,68,164,0.08);
+}
+
+.contaeh-pillar-grid{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:stretch;
+}
+
+.contaeh-pillar-grid .pillar-card{
+  min-width:0;
+  background:#dff6e7;
+}
+
+.contaeh-pillar-grid .pillar-card::after{
+  content:none;
+}
+
+.contaeh-pillar-grid .contaeh-cascavel-visual{
+  align-self:stretch;
 }
 
 .contaeh-experience{
@@ -477,6 +529,30 @@
     #fff7ea;
 }
 
+.contaeh-page #oportunidade .section-head{
+  grid-template-columns:minmax(0,1.1fr) minmax(300px,0.9fr);
+  align-items:stretch;
+  gap:2.4rem;
+}
+
+.contaeh-page #oportunidade .section-head > div{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.contaeh-page #oportunidade .section-note{
+  display:flex;
+  align-items:center;
+  min-height:100%;
+  padding:1.4rem;
+  border:0;
+  border-radius:8px;
+  background:var(--contaeh-pink);
+  color:#fff;
+  box-shadow:0 18px 42px rgba(242,68,164,0.18);
+}
+
 .contaeh-page #produto{
   background:
     linear-gradient(135deg,rgba(108,206,217,0.32),rgba(255,255,255,0.7) 46%,rgba(242,202,80,0.18)),
@@ -548,6 +624,16 @@
   box-shadow:0 18px 42px rgba(34,52,89,0.1);
 }
 
+.contaeh-page #parceiro .partner-card{
+  border-color:rgba(255,255,255,0.16);
+  background:rgba(10,20,38,0.74);
+  box-shadow:0 22px 48px rgba(0,0,0,0.24);
+}
+
+.contaeh-page #parceiro aside.partner-card h3{
+  margin-bottom:1.5rem;
+}
+
 .contaeh-page .insight-card:nth-child(1),
 .contaeh-page .pillar-card:nth-child(1),
 .contaeh-page .path-card:nth-child(1),
@@ -574,7 +660,7 @@
 }
 
 .contaeh-page #oportunidade .insight-card:nth-child(2){
-  background:#f2ca50;
+  background:#fff;
 }
 
 .contaeh-page #oportunidade .insight-card:nth-child(3){
@@ -583,7 +669,6 @@
 
 .contaeh-page #oportunidade .insight-card:nth-child(1) h3,
 .contaeh-page #oportunidade .insight-card:nth-child(1) p,
-.contaeh-page #oportunidade .insight-card:nth-child(3) h3,
 .contaeh-page #oportunidade .insight-card:nth-child(3) p{
   color:#fff;
 }
@@ -593,9 +678,22 @@
   color:var(--contaeh-navy);
 }
 
+.contaeh-page #oportunidade .insight-card:nth-child(3) h3,
+.contaeh-page #oportunidade .insight-card:nth-child(3) h3 strong{
+  color:var(--contaeh-peach);
+}
+
 .contaeh-page .pillar-card:nth-child(4),
 .contaeh-page .journey-step:nth-child(4){
   background:linear-gradient(180deg,rgba(242,193,133,0.34),rgba(255,255,255,0.92));
+}
+
+.contaeh-page .contaeh-pillar-grid .pillar-card{
+  background:#dff6e7;
+}
+
+.contaeh-page .contaeh-pillar-grid .pillar-card:nth-of-type(odd){
+  background:#fff;
 }
 
 .contaeh-page .insight-card h3,
@@ -635,17 +733,17 @@
   box-shadow:0 16px 36px rgba(34,52,89,0.12);
 }
 
-.contaeh-signal-strip .signal-item:nth-child(1){background:#72CA50}
-.contaeh-signal-strip .signal-item:nth-child(2){background:#6CCED9}
-.contaeh-signal-strip .signal-item:nth-child(3){background:#F244A4}
-.contaeh-signal-strip .signal-item:nth-child(4){background:#F2C185}
+.contaeh-signal-strip .signal-item:nth-child(1){background:#6CCED9}
+.contaeh-signal-strip .signal-item:nth-child(2){background:#F244A4}
+.contaeh-signal-strip .signal-item:nth-child(3){background:#72CA50}
+.contaeh-signal-strip .signal-item:nth-child(4){background:#F2CA50}
 
-.contaeh-signal-strip .signal-label,
 .contaeh-signal-strip .signal-item p{
   color:var(--contaeh-navy);
 }
 
 .contaeh-signal-strip .signal-label{
+  color:#fff;
   font-weight:700;
 }
 
@@ -676,6 +774,117 @@
 .contaeh-page .contaeh-cta p,
 .contaeh-page .contaeh-cta .section-tag{
   color:var(--contaeh-navy);
+}
+
+.contaeh-page .cta-actions .btn-primary{
+  white-space:normal;
+  text-align:left;
+}
+
+.contaeh-pilot-section{
+  background:
+    linear-gradient(135deg,rgba(108,206,217,0.24),rgba(255,255,255,0.78) 46%,rgba(242,193,133,0.32)),
+    #f4fdff;
+}
+
+.contaeh-pdf-section{
+  background:
+    linear-gradient(135deg,rgba(34,52,89,0.96),rgba(108,206,217,0.28) 54%,rgba(242,68,164,0.24)),
+    var(--contaeh-navy);
+}
+
+.contaeh-pdf-section .section-tag{
+  color:#72CA50;
+}
+
+.contaeh-pdf-section h2,
+.contaeh-pdf-section .lead{
+  color:var(--contaeh-pink);
+}
+
+.pilot-shell{
+  display:grid;
+  grid-template-columns:minmax(0,0.85fr) minmax(320px,1.15fr);
+  gap:2rem;
+  align-items:start;
+}
+
+.pilot-copy{
+  position:sticky;
+  top:6.5rem;
+}
+
+.pilot-form{
+  display:grid;
+  gap:1rem;
+  padding:1.6rem;
+  border:1px solid rgba(34,52,89,0.1);
+  border-radius:8px;
+  background:#fff;
+  box-shadow:0 18px 42px rgba(34,52,89,0.1);
+}
+
+.pilot-form label,
+.pilot-choice legend{
+  color:var(--contaeh-navy);
+  font-weight:600;
+  line-height:1.35;
+}
+
+.pilot-form input,
+.pilot-form select,
+.pilot-form textarea{
+  width:100%;
+  margin-top:0.45rem;
+  padding:0.85rem 0.95rem;
+  border:1px solid rgba(34,52,89,0.18);
+  border-radius:8px;
+  background:#fff;
+  color:var(--contaeh-navy);
+  font:inherit;
+}
+
+.pilot-form textarea{
+  resize:vertical;
+}
+
+.pilot-form input:focus,
+.pilot-form select:focus,
+.pilot-form textarea:focus{
+  outline:3px solid rgba(108,206,217,0.32);
+  border-color:var(--contaeh-cyan);
+}
+
+.pilot-choice{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.85rem 1.2rem;
+  padding:1rem;
+  border:1px solid rgba(34,52,89,0.12);
+  border-radius:8px;
+}
+
+.pilot-choice legend{
+  padding:0 0.35rem;
+}
+
+.pilot-choice label{
+  display:inline-flex;
+  align-items:center;
+  gap:0.45rem;
+  font-weight:500;
+}
+
+.pilot-choice input{
+  width:auto;
+  margin:0;
+  accent-color:var(--contaeh-pink);
+}
+
+.pilot-form button{
+  justify-self:start;
+  cursor:pointer;
+  font:inherit;
 }
 
 .contaeh-page footer{
@@ -761,6 +970,14 @@
   line-height:1.45;
 }
 
+.contaeh-product-visuals{
+  display:grid;
+  grid-template-columns:minmax(0,420px);
+  justify-content:center;
+  gap:1.3rem;
+  margin-bottom:2rem;
+}
+
 .contaeh-wide-visual{
   overflow:hidden;
   max-width:420px;
@@ -768,6 +985,19 @@
   border-radius:18px;
   background:linear-gradient(135deg,var(--contaeh-cyan),#fff);
   box-shadow:0 18px 42px rgba(34,52,89,0.12);
+}
+
+.contaeh-product-visuals .contaeh-wide-visual{
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+
+.contaeh-cascavel-visual{
+  display:flex;
+  flex-direction:column;
+  max-width:none;
+  margin:0;
 }
 
 .contaeh-wide-visual img{
@@ -782,6 +1012,11 @@
   font-size:0.92rem;
   line-height:1.55;
   background:rgba(255,255,255,0.86);
+}
+
+.contaeh-cascavel-visual img{
+  flex:1;
+  object-fit:cover;
 }
 
 .trust-card{
@@ -863,6 +1098,16 @@
     min-height:auto;
   }
 
+  .contaeh-hero .contaeh-hero-frame .page-title{
+    max-width:760px;
+    margin-top:1.8rem;
+    font-size:3.5rem;
+  }
+
+  .contaeh-hero-subtitle{
+    font-size:1.12rem;
+  }
+
   .contaeh-hero-scene{
     position:relative;
     inset:auto;
@@ -888,8 +1133,18 @@
 
   .journey-grid,
   .trust-grid,
-  .contaeh-next-grid{
+  .contaeh-pillar-grid,
+  .contaeh-next-grid,
+  .pilot-shell{
     grid-template-columns:1fr 1fr;
+  }
+
+  .contaeh-page #oportunidade .section-head{
+    grid-template-columns:1fr;
+  }
+
+  .pilot-copy{
+    position:static;
   }
 }
 
@@ -909,8 +1164,46 @@
     border-radius:14px;
   }
 
+  .contaeh-hero-frame{
+    max-width:94vw;
+  }
+
+  .contaeh-hero .contaeh-hero-frame .page-title{
+    max-width:100%;
+    margin-top:1.25rem;
+    font-size:2rem;
+    line-height:1.04;
+  }
+
+  .contaeh-hero-subtitle{
+    font-size:1rem;
+  }
+
   .contaeh-hero-line{
     font-size:1.08rem;
+  }
+
+  .contaeh-product-visuals{
+    grid-template-columns:1fr;
+  }
+
+  .contaeh-pillar-grid{
+    grid-template-columns:1fr;
+  }
+
+  .pilot-shell{
+    grid-template-columns:1fr;
+  }
+
+  .pilot-form{
+    padding:1.15rem;
+  }
+
+  .pilot-form button,
+  .contaeh-page .cta-actions .btn-primary{
+    justify-self:stretch;
+    justify-content:center;
+    text-align:center;
   }
 
   .contaeh-hero-content{
