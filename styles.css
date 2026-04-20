@@ -64,6 +64,12 @@ nav{
 
 .nav-links a:hover{color:var(--amber2)}
 
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+
 .nav-cta{
   font-size:0.9rem;
   font-weight:500;
@@ -77,8 +83,18 @@ nav{
   transition:background 0.2s,color 0.2s;
 }
 
+.nav-cta-featured{
+  border-color:rgba(102,216,168,0.52);
+  color:#66d8a8;
+}
+
 .nav-cta:hover{
   background:var(--amber);
+  color:var(--deep);
+}
+
+.nav-cta-featured:hover{
+  background:#66d8a8;
   color:var(--deep);
 }
 
@@ -471,6 +487,39 @@ h2 em{
   cursor:pointer;
 }
 
+.project-card-featured{
+  min-height:100%;
+  background:
+    linear-gradient(145deg,rgba(15,32,53,0.96) 0%,rgba(10,35,48,0.98) 100%);
+  border-color:rgba(102,216,168,0.2);
+}
+
+.project-icon{
+  width:64px;
+  height:64px;
+  margin-bottom:1.35rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(102,216,168,0.24);
+  border-radius:16px;
+  background:rgba(102,216,168,0.08);
+  color:#66d8a8;
+}
+
+.project-icon svg{
+  width:42px;
+  height:42px;
+}
+
+.project-icon path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
 .project-card-external{
   display:grid;
   grid-column:span 2;
@@ -608,6 +657,12 @@ h2 em{
   background:rgba(240,228,207,0.08);
   border:1px solid rgba(240,228,207,0.18);
   color:var(--cream);
+}
+
+.status-live{
+  background:rgba(102,216,168,0.1);
+  border:1px solid rgba(102,216,168,0.24);
+  color:#66d8a8;
 }
 
 .project-desc{
@@ -1690,6 +1745,22 @@ footer{
   .hero-content{
     width:560px;
     max-width:96vw;
+  }
+
+  nav{
+    padding:0.9rem 4vw;
+    gap:0.75rem;
+  }
+
+  .logo{font-size:1.28rem}
+
+  .nav-actions{gap:0.45rem}
+
+  .nav-cta{
+    padding:0.48rem 0.7rem;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    white-space:nowrap;
   }
 
   .page-hero{padding-top:7.5rem}
