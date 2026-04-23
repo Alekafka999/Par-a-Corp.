@@ -16,12 +16,15 @@
 <meta property="og:description" content="Discover the Ro&ccedil;a Hub investment thesis: simple operations, commercial intelligence, and local connections for small producers.">
 <meta property="og:url" content="https://parcacorp.com.br/rocahub/en/">
 <meta property="og:site_name" content="Par&ccedil;a Corp">
-<meta property="og:image" content="https://parcacorp.com.br/favicon.png">
+<meta property="og:image" content="https://parcacorp.com.br/apple-touch-icon.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Investors | Ro&ccedil;a Hub | Par&ccedil;a Corp">
 <meta name="twitter:description" content="Ro&ccedil;a Hub is Par&ccedil;a Corp's venture focused on small producers, simplified management, market intelligence, and regional growth.">
-<meta name="twitter:image" content="https://parcacorp.com.br/favicon.png">
-<link rel="icon" type="image/png" href="../favicon.png">
+<meta name="twitter:image" content="https://parcacorp.com.br/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="shortcut icon" href="../../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -372,6 +375,9 @@ const presentationFormStatus = document.getElementById('presentation-form-status
 const statusMessages = {
   missing: 'Some required fields are missing. Review the form and try again.',
   invalid: 'Some information looks invalid. Check the email and try again.',
+  save: 'We could not register your data right now. Try again shortly or use WhatsApp in the footer.',
+  notify: 'Your data was registered, but the email notification failed. For safety, the PDF was not released automatically.',
+  file: 'The presentation is not available on the server right now. Use WhatsApp in the footer.',
   smtp_config: 'Email sending is not configured on the server yet. Your data may be recovered from the local backup.',
   send_saved: 'Your data was registered, but the email notification failed. We can recover your submission on the server.',
   send: 'We could not complete the submission right now. Try again shortly or use WhatsApp in the footer.'

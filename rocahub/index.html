@@ -16,12 +16,15 @@
 <meta property="og:description" content="Conhe&ccedil;a a tese de investimento do Ro&ccedil;a Hub: opera&ccedil;&atilde;o simples, intelig&ecirc;ncia comercial e conex&otilde;es locais para o pequeno produtor.">
 <meta property="og:url" content="https://parcacorp.com.br/rocahub/">
 <meta property="og:site_name" content="Par&ccedil;a Corp">
-<meta property="og:image" content="https://parcacorp.com.br/favicon.png">
+<meta property="og:image" content="https://parcacorp.com.br/apple-touch-icon.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Investidores | Ro&ccedil;a Hub | Par&ccedil;a Corp">
 <meta name="twitter:description" content="Ro&ccedil;a Hub &eacute; a frente da Par&ccedil;a Corp voltada a pequenos produtores, com gest&atilde;o simplificada, intelig&ecirc;ncia de mercado e crescimento regional.">
-<meta name="twitter:image" content="https://parcacorp.com.br/favicon.png">
-<link rel="icon" type="image/png" href="../favicon.png">
+<meta name="twitter:image" content="https://parcacorp.com.br/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -421,6 +424,9 @@ const presentationFormStatus = document.getElementById('presentation-form-status
 const statusMessages = {
   missing: 'Faltaram alguns campos obrigatorios. Revise o formulario e tente novamente.',
   invalid: 'Alguns dados parecem invalidos. Confira o e-mail e tente novamente.',
+  save: 'Nao conseguimos registrar seus dados agora. Tente de novo em instantes ou use o WhatsApp no rodape.',
+  notify: 'Registramos seus dados, mas a notificacao por e-mail falhou. Por seguranca, o PDF nao foi liberado automaticamente.',
+  file: 'A apresentacao nao esta disponivel no servidor agora. Use o WhatsApp no rodape.',
   smtp_config: 'O envio por e-mail ainda nao foi configurado no servidor. Seus dados podem ser recuperados no backup local.',
   send_saved: 'Seus dados foram registrados, mas o e-mail de notificacao falhou. Podemos recuperar sua submissao no servidor.',
   send: 'Nao conseguimos concluir o envio agora. Tente de novo em instantes ou use o WhatsApp no rodape.'

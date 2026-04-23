@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-const PRESENTATION_PDF_URL = 'https://www.parcacorp.com.br/rocahub/Roca-Hub.pdf';
-
 function clean_return_page(string $value): string
 {
     return $value === 'en/index.html' ? 'en/index.html' : 'index.html';
@@ -22,16 +20,31 @@ function redirect_with_status(string $status, string $reason = '', string $conte
     exit;
 }
 
-function redirect_to_presentation(): void
+function redirect_to_presentation(string $returnPage = 'index.html'): void
 {
-    header('Location: ' . PRESENTATION_PDF_URL, true, 303);
+    $file = private_storage_directory() . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'rocahub' . DIRECTORY_SEPARATOR . 'Roca-Hub.pdf';
+
+    if (!is_file($file)) {
+        redirect_with_status('error', 'file', 'download', 'presentation-download-form', $returnPage);
+    }
+
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="Roca-Hub.pdf"');
+    header('Content-Length: ' . (string) filesize($file));
+    header('X-Content-Type-Options: nosniff');
+    header('Cache-Control: private, no-store, max-age=0');
+    readfile($file);
     exit;
 }
 
 function redirect_success(bool $isPresentationDownload, string $returnPage = 'index.html'): void
 {
     if ($isPresentationDownload) {
-        redirect_to_presentation();
+        redirect_to_presentation($returnPage);
     }
 
     redirect_with_status('success', '', 'form', 'pilot-interest-form', $returnPage);
@@ -59,11 +72,33 @@ function encode_subject(string $subject): string
     return '=?UTF-8?B?' . base64_encode($subject) . '?=';
 }
 
-function save_submission(array $data): bool
+function private_storage_directory(): string
 {
-    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+    $configured = getenv('PARCA_PRIVATE_DIR');
+
+    if ($configured !== false && trim($configured) !== '') {
+        return rtrim(trim($configured), DIRECTORY_SEPARATOR . '/\\');
+    }
+
+    return dirname(__DIR__) . DIRECTORY_SEPARATOR . '_private';
+}
+
+function submission_directory(): ?string
+{
+    $directory = private_storage_directory() . DIRECTORY_SEPARATOR . 'submissions' . DIRECTORY_SEPARATOR . basename(__DIR__);
 
     if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+        return null;
+    }
+
+    return $directory;
+}
+
+function save_submission(array $data): bool
+{
+    $directory = submission_directory();
+
+    if ($directory === null) {
         return false;
     }
 
@@ -96,9 +131,9 @@ function save_submission(array $data): bool
 
 function save_presentation_download(array $data): bool
 {
-    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+    $directory = submission_directory();
 
-    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+    if ($directory === null) {
         return false;
     }
 
@@ -131,9 +166,9 @@ function save_presentation_download(array $data): bool
 
 function append_smtp_log(string $message, array $context = []): void
 {
-    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+    $directory = submission_directory();
 
-    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+    if ($directory === null) {
         return;
     }
 
@@ -401,7 +436,7 @@ if ($isPresentationDownload) {
         'Comentario:',
         $safeComment !== '' ? $safeComment : 'Sem comentario.',
         '',
-        'PDF liberado: ' . PRESENTATION_PDF_URL,
+        'PDF liberado: download privado apos formulario',
         'Origem: https://parcacorp.com.br/rocahub/',
         'IP: ' . $ip,
     ]);
@@ -433,6 +468,10 @@ if ($isPresentationDownload) {
     ]);
 }
 
+if (!$saved) {
+    redirect_error($isPresentationDownload, 'save', $returnPage);
+}
+
 if ($smtpConfig['password'] === '' || $smtpConfig['username'] === '' || $smtpConfig['host'] === '' || $smtpConfig['to_email'] === '') {
     try {
         if (send_via_php_mail($smtpConfig, $subject, $message, $emailHeader !== '' ? $emailHeader : null)) {
@@ -451,9 +490,7 @@ if ($smtpConfig['password'] === '' || $smtpConfig['username'] === '' || $smtpCon
             'ip' => $ip,
         ]);
 
-        if ($saved) {
-            redirect_success($isPresentationDownload, $returnPage);
-        }
+        redirect_error($isPresentationDownload, 'notify', $returnPage);
     }
 
     redirect_error($isPresentationDownload, 'send', $returnPage);
@@ -493,16 +530,10 @@ try {
             'ip' => $ip,
         ]);
 
-        if ($saved) {
-            redirect_success($isPresentationDownload, $returnPage);
-        }
+        redirect_error($isPresentationDownload, 'notify', $returnPage);
     }
 
     redirect_error($isPresentationDownload, 'send', $returnPage);
 }
 
-if ($saved) {
-    redirect_success($isPresentationDownload, $returnPage);
-}
-
-redirect_error($isPresentationDownload, 'send', $returnPage);
+redirect_error($isPresentationDownload, 'notify', $returnPage);

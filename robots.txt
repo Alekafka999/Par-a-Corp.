@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /_private/
+Disallow: /arthunt/submissions/
+Disallow: /conectaeh/submissions/
+Disallow: /meistation/submissions/
+Disallow: /rocahub/submissions/
+Disallow: /*.csv$
+Disallow: /*.log$
+Disallow: /*.zip$
+Disallow: /*.example$
 
 Sitemap: https://parcacorp.com.br/sitemap.xml

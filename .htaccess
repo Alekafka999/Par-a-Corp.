@@ -1,0 +1,34 @@
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\.git(/|$) - [F,L]
+  RewriteRule (^|/)_private(/|$) - [F,L]
+  RewriteRule (^|/)submissions(/|$) - [F,L]
+  RewriteRule ^(arthunt|conectaeh|contaeh|meistation|rocahub)/.*\.pdf$ - [F,L,NC]
+</IfModule>
+
+<IfModule mod_alias.c>
+  RedirectMatch 403 ^/(arthunt|conectaeh|contaeh|meistation|rocahub)/.*\.pdf$
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+</IfModule>
+
+<IfModule mod_authz_core.c>
+  <FilesMatch "(^\.|blog_php_resumo\.txt$|\.bak$|\.backup$|\.csv$|\.env$|\.example$|\.ini$|\.log$|\.md$|\.sql$|\.zip$|composer\.(json|lock)$|package(-lock)?\.json$|smtp-config\.php$)">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+  <FilesMatch "(^\.|blog_php_resumo\.txt$|\.bak$|\.backup$|\.csv$|\.env$|\.example$|\.ini$|\.log$|\.md$|\.sql$|\.zip$|composer\.(json|lock)$|package(-lock)?\.json$|smtp-config\.php$)">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>

@@ -28,6 +28,28 @@ function encode_subject(string $subject): string
     return '=?UTF-8?B?' . base64_encode($subject) . '?=';
 }
 
+function private_storage_directory(): string
+{
+    $configured = getenv('PARCA_PRIVATE_DIR');
+
+    if ($configured !== false && trim($configured) !== '') {
+        return rtrim(trim($configured), DIRECTORY_SEPARATOR . '/\\');
+    }
+
+    return dirname(__DIR__) . DIRECTORY_SEPARATOR . '_private';
+}
+
+function submission_directory(): ?string
+{
+    $directory = private_storage_directory() . DIRECTORY_SEPARATOR . 'submissions' . DIRECTORY_SEPARATOR . basename(__DIR__);
+
+    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+        return null;
+    }
+
+    return $directory;
+}
+
 function load_mail_config(): array
 {
     $config = [
@@ -63,9 +85,9 @@ function load_mail_config(): array
 
 function save_presentation_request(array $data): bool
 {
-    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+    $directory = submission_directory();
 
-    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+    if ($directory === null) {
         return false;
     }
 
@@ -98,9 +120,9 @@ function save_presentation_request(array $data): bool
 
 function append_error_log(string $message, array $context = []): void
 {
-    $directory = __DIR__ . DIRECTORY_SEPARATOR . 'submissions';
+    $directory = submission_directory();
 
-    if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
+    if ($directory === null) {
         return;
     }
 
@@ -198,6 +220,8 @@ try {
         'email' => $emailHeader,
         'ip' => $ip,
     ]);
+
+    redirect_with_status('error', 'notify');
 }
 
 redirect_with_status('success');

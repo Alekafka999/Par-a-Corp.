@@ -20,7 +20,10 @@
 <meta name="twitter:title" content="Investidores | Art Hunt | Par&ccedil;a Corp">
 <meta name="twitter:description" content="Art Hunt &eacute; a frente cultural urbana da Par&ccedil;a Corp: rotas, descoberta, curadoria e intelig&ecirc;ncia aplicada &agrave; arte da cidade.">
 <meta name="twitter:image" content="https://parcacorp.com.br/arthunt/arthunt.png">
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="shortcut icon" href="../favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="arthunt.css">
@@ -392,6 +395,9 @@ const presentationFormStatus = document.getElementById('presentation-form-status
 const statusMessages = {
   missing: 'Faltaram alguns campos obrigatorios. Revise o formulario e tente novamente.',
   invalid: 'Alguns dados parecem invalidos. Confira o e-mail e tente novamente.',
+  save: 'Nao conseguimos registrar seus dados agora. Tente de novo em instantes ou use o WhatsApp no rodape.',
+  notify: 'Registramos seus dados, mas a notificacao por e-mail falhou. Use o WhatsApp no rodape se for urgente.',
+  file: 'A apresentacao nao esta disponivel no servidor agora. Use o WhatsApp no rodape.',
   send_saved: 'Seus dados foram registrados. Se o envio automatico falhar, vamos recuperar sua solicitacao pelo backup local.',
   send: 'Nao conseguimos concluir o envio agora. Tente de novo em instantes ou use o WhatsApp no rodape.'
 };

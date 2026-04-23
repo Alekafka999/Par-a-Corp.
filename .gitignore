@@ -1,0 +1,12 @@
+/_private/submissions/*
+!/_private/submissions/.htaccess
+!/_private/submissions/.gitkeep
+
+*.csv
+*.log
+*.zip
+*.bak
+*.backup
+*.sql
+.env
+smtp-config.php
