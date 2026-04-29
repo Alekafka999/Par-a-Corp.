@@ -175,6 +175,16 @@
   border-bottom-color:rgba(17,169,214,0.16);
 }
 
+.arthunt-panel .investor-panel-list .arthunt-status-item{
+  margin-top:0.85rem;
+  padding:0.85rem 0.95rem;
+  border:1px solid rgba(255,191,36,0.52);
+  border-radius:8px;
+  background:linear-gradient(90deg,rgba(255,191,36,0.96) 0%,rgba(242,106,33,0.92) 100%);
+  color:#061018;
+  box-shadow:0 14px 32px rgba(242,106,33,0.28);
+}
+
 .arthunt-panel .pilot-panel-copy{
   margin-bottom:0.9rem;
 }
@@ -183,6 +193,10 @@
 .art-hunt-page .insight-card strong,
 .art-hunt-page .partner-card strong{
   color:var(--amber2);
+}
+
+.arthunt-panel .investor-panel-list .arthunt-status-item strong{
+  color:#061018;
 }
 
 .art-hunt-page .presentation-download-trigger{
