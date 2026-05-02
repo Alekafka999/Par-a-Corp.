@@ -83,7 +83,7 @@
 .conectaeh-hero-copy{
   position:relative;
   z-index:1;
-  max-width:none;
+  max-width:1120px;
   text-align:left;
 }
 
@@ -94,8 +94,211 @@
   text-align:left;
 }
 
+.conectaeh-hero-copy .page-title{
+  max-width:1040px;
+  margin-bottom:1.5rem;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(4.2rem,7.2vw,7.7rem);
+  font-weight:400;
+  line-height:0.94;
+  letter-spacing:0;
+  text-wrap:balance;
+}
+
+.conectaeh-hero-copy .page-title em{
+  display:block;
+  margin-top:0.1rem;
+  color:var(--amber2);
+  font-weight:400;
+  line-height:0.94;
+}
+
+.conectaeh-title-dot{
+  color:var(--amber2);
+}
+
+.conectaeh-title-dot-muted{
+  color:rgba(240,228,207,0.76);
+}
+
+.conectaeh-hero-rule{
+  position:relative;
+  width:min(900px,100%);
+  height:2px;
+  margin:0 0 1.55rem;
+  background:rgba(143,168,194,0.22);
+}
+
+.conectaeh-hero-rule::before{
+  content:'';
+  position:absolute;
+  inset:0 auto 0 0;
+  width:190px;
+  background:var(--amber2);
+}
+
+.conectaeh-hero-copy .page-intro{
+  max-width:900px;
+  margin-bottom:0;
+  color:rgba(240,228,207,0.9);
+  font-size:clamp(1.16rem,1.75vw,1.42rem);
+  line-height:1.55;
+}
+
 .conectaeh-announcement{
+  position:relative;
+  z-index:1;
+  margin-top:2rem;
   text-align:left;
+}
+
+.conectaeh-positioning-card{
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr);
+  gap:1.15rem;
+  align-items:center;
+  max-width:1120px;
+  margin:1.9rem 0 0;
+  padding:1.35rem 1.6rem;
+  border:1px solid rgba(143,168,194,0.28);
+  border-left:5px solid var(--amber2);
+  border-radius:14px;
+  background:rgba(6,14,28,0.42);
+  box-shadow:0 24px 65px rgba(0,0,0,0.22);
+  color:var(--cream);
+}
+
+.conectaeh-positioning-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:74px;
+  height:74px;
+  border:2px solid var(--amber2);
+  border-radius:50%;
+  color:var(--amber2);
+}
+
+.conectaeh-positioning-icon svg{
+  width:48px;
+  height:48px;
+}
+
+.conectaeh-positioning-copy{
+  color:var(--cream);
+  font-size:clamp(1.12rem,2vw,1.55rem);
+  font-weight:600;
+  line-height:1.45;
+}
+
+.conectaeh-positioning-copy strong{
+  color:var(--amber2);
+  font-weight:600;
+}
+
+.investor-hero{
+  min-height:calc(100vh - 1rem);
+  padding-top:7.2rem;
+  background:
+    radial-gradient(circle at 112% 50%,rgba(224,120,40,0.14) 0%,transparent 32%),
+    radial-gradient(circle at 78% 46%,rgba(143,168,194,0.12) 0%,transparent 34%),
+    linear-gradient(135deg,#061326 0%,#071a31 44%,#06101f 100%);
+}
+
+.investor-hero::before{
+  inset:0;
+  background:
+    radial-gradient(circle at 112% 52%,transparent 0 24%,rgba(224,120,40,0.85) 24.1% 24.25%,transparent 24.35%),
+    radial-gradient(circle at 109% 52%,transparent 0 31%,rgba(143,168,194,0.16) 31.1% 31.25%,transparent 31.35%),
+    radial-gradient(circle at 112% 52%,transparent 0 20%,rgba(224,120,40,0.38) 20.1% 20.22%,transparent 20.32%);
+}
+
+.investor-hero::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,rgba(6,14,28,0.08) 0%,rgba(6,14,28,0.12) 68%,rgba(6,14,28,0.64) 100%),
+    radial-gradient(circle at 18% 24%,rgba(240,160,80,0.08) 0%,transparent 28%);
+  pointer-events:none;
+}
+
+.conectaeh-selection-note{
+  max-width:920px;
+}
+
+@media (max-width:900px){
+  .conectaeh-hero-copy .page-title{
+    font-size:clamp(3.4rem,10.5vw,6rem);
+  }
+
+  .conectaeh-positioning-card{
+    grid-template-columns:76px minmax(0,1fr);
+    padding:1.15rem 1.25rem;
+  }
+
+  .conectaeh-positioning-icon{
+    width:62px;
+    height:62px;
+  }
+}
+
+@media (max-width:600px){
+  nav{
+    left:0;
+    right:0;
+    width:100vw;
+    max-width:100vw;
+    overflow:hidden;
+  }
+
+  nav .nav-cta{
+    flex-shrink:0;
+    max-width:42vw;
+  }
+
+  .investor-hero{
+    padding-top:6.8rem;
+  }
+
+  .investor-hero > .page-shell{
+    width:auto;
+    max-width:none;
+    margin-left:1.5rem;
+    margin-right:1.5rem;
+  }
+
+  .conectaeh-hero-copy{
+    max-width:100%;
+  }
+
+  .conectaeh-hero-copy .page-title{
+    max-width:100%;
+    font-size:clamp(2.05rem,9vw,2.4rem);
+    line-height:1;
+  }
+
+  .conectaeh-hero-copy .page-intro{
+    font-size:1.05rem;
+    overflow-wrap:anywhere;
+  }
+
+  .conectaeh-hero-rule::before{
+    width:38%;
+  }
+
+  .conectaeh-positioning-card{
+    grid-template-columns:1fr;
+    gap:0.85rem;
+    width:100%;
+    max-width:100%;
+    padding:1.1rem 1rem;
+  }
+
+  .conectaeh-positioning-copy{
+    font-size:1.06rem;
+    overflow-wrap:anywhere;
+  }
 }
 
 .conectaeh-next-step{
@@ -158,6 +361,15 @@
   color:var(--amber2);
 }
 
+.conectaeh-closing-line{
+  max-width:860px;
+  margin:0 0 2.8rem;
+  color:var(--amber2);
+  font-size:clamp(1.12rem,2vw,1.45rem);
+  font-weight:400;
+  line-height:1.5;
+}
+
 .conectaeh-partner-note{
   margin-top:auto;
   padding:1rem 1.1rem;
@@ -180,6 +392,98 @@
 .conectaeh-conversation-card .partner-list{
   margin-bottom:1.2rem;
 }
+
+.conectaeh-comparison{
+  overflow:hidden;
+  border:1px solid rgba(143,168,194,0.12);
+  border-radius:12px;
+  background:var(--card);
+}
+
+.conectaeh-comparison table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.conectaeh-comparison th,
+.conectaeh-comparison td{
+  padding:1.15rem 1.35rem;
+  border-bottom:1px solid rgba(143,168,194,0.1);
+  text-align:left;
+  vertical-align:top;
+}
+
+.conectaeh-comparison th{
+  font-size:0.82rem;
+  font-weight:500;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--amber2);
+}
+
+.conectaeh-comparison td{
+  color:var(--silver);
+  line-height:1.7;
+}
+
+.conectaeh-comparison tr:last-child td{
+  border-bottom:0;
+}
+
+.conectaeh-comparison td:last-child{
+  color:var(--cream);
+}
+
+@media (max-width:680px){
+  .conectaeh-comparison{
+    border-radius:10px;
+  }
+
+  .conectaeh-comparison table,
+  .conectaeh-comparison thead,
+  .conectaeh-comparison tbody,
+  .conectaeh-comparison tr,
+  .conectaeh-comparison th,
+  .conectaeh-comparison td{
+    display:block;
+  }
+
+  .conectaeh-comparison thead{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip:rect(0 0 0 0);
+  }
+
+  .conectaeh-comparison tr{
+    border-bottom:1px solid rgba(143,168,194,0.12);
+  }
+
+  .conectaeh-comparison tr:last-child{
+    border-bottom:0;
+  }
+
+  .conectaeh-comparison td{
+    padding:1rem 1.1rem;
+    border-bottom:0;
+  }
+
+  .conectaeh-comparison td::before{
+    content:attr(data-label);
+    display:block;
+    margin-bottom:0.35rem;
+    font-size:0.72rem;
+    font-weight:500;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber2);
+  }
+
+  .conectaeh-comparison td + td{
+    padding-top:0;
+  }
+}
 </style>
 </head>
 <body>
@@ -199,18 +503,27 @@
 </nav>
 
 <section class="page-hero investor-hero">
-  <div class="page-shell investor-hero-media">
-    <img src="../Parca_Corp - head.jpg" alt="Imagem institucional da Par&ccedil;a Corp" class="investor-hero-img">
+  <div class="page-shell conectaeh-hero-copy">
+    <h1 class="page-title">Toda empresa tem<br>um organograma<span class="conectaeh-title-dot">.</span> <em>Mas &eacute; o invis&iacute;vel que<br>faz tudo funcionar<span class="conectaeh-title-dot-muted">.</span></em></h1>
+    <div class="conectaeh-hero-rule" aria-hidden="true"></div>
+    <p class="page-intro">O Conectaeh &eacute; a rede social corporativa que fortalece conex&otilde;es reais entre colaboradores, aumenta o engajamento e transforma a cultura da empresa em algo vivo, participativo e mensur&aacute;vel.</p>
+    <div class="conectaeh-positioning-card">
+      <span class="conectaeh-positioning-icon" aria-hidden="true">
+        <svg viewBox="0 0 64 64" focusable="false">
+          <circle cx="32" cy="18" r="8" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="18" cy="44" r="8" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="46" cy="44" r="8" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M28 25 22 37M36 25l6 12M26 44h12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M27 18c0-3 2-5 5-5s5 2 5 5M13 44c0-3 2-5 5-5s5 2 5 5M41 44c0-3 2-5 5-5s5 2 5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <p class="conectaeh-positioning-copy">Conectaeh &eacute; uma rede social interna para empresas que desejam <strong>transformar comunica&ccedil;&atilde;o corporativa</strong> em participa&ccedil;&atilde;o, cultura e intelig&ecirc;ncia organizacional.</p>
+    </div>
   </div>
 
   <div class="page-shell conectaeh-announcement">
     <span class="page-kicker">Conectaeh &middot; Investor Page</span>
     <p class="section-note conectaeh-selection-note"><strong>O Conectaeh foi pr&eacute;-selecionado no Desafix de Inova&ccedil;&atilde;o - 5&ordf; Edi&ccedil;&atilde;o,</strong> realizada pela #Colmeia by <a href="https://www.ciser.com.br/" target="_blank" rel="noopener noreferrer">Ciser</a> e <a href="https://programas.sebraestartups.com.br/" target="_blank" rel="noopener noreferrer">Sebrae Startups</a>. Execu&ccedil;&atilde;o: <a href="https://txm-methods.com/" target="_blank" rel="noopener noreferrer">TXM Methods</a>.</p>
-  </div>
-
-  <div class="page-shell conectaeh-hero-copy">
-    <h1 class="page-title">Toda empresa tem um organograma. <em>Mas &eacute; o invis&iacute;vel que faz tudo funcionar.</em></h1>
-    <p class="page-intro">O Conectaeh &eacute; a rede social corporativa que fortalece conex&otilde;es reais entre colaboradores, aumenta o engajamento e transforma a cultura da empresa em algo vivo, participativo e mensur&aacute;vel.</p>
   </div>
 
   <div class="page-shell signal-strip">
@@ -313,6 +626,64 @@
           <span class="tag">Mensura&ccedil;&atilde;o</span>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-shell">
+    <div class="section-head">
+      <div>
+        <p class="section-tag">Diferen&ccedil;a pr&aacute;tica</p>
+        <h2>Da intranet tradicional para uma cultura em rede.</h2>
+        <p class="lead">O Conectaeh muda a l&oacute;gica da comunica&ccedil;&atilde;o interna: menos reposit&oacute;rio parado, mais circula&ccedil;&atilde;o viva de conhecimento, pertencimento e participa&ccedil;&atilde;o.</p>
+      </div>
+      <p class="section-note">A compara&ccedil;&atilde;o mostra onde a plataforma atua: na passagem de canais est&aacute;ticos para rela&ccedil;&otilde;es organizacionais mais vis&iacute;veis, cont&iacute;nuas e mensur&aacute;veis.</p>
+    </div>
+
+    <div class="conectaeh-comparison">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Intranet tradicional</th>
+            <th scope="col">Conectaeh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Intranet tradicional">Comunica&ccedil;&atilde;o vertical</td>
+            <td data-label="Conectaeh">Comunica&ccedil;&atilde;o em rede</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">Conte&uacute;do est&aacute;tico</td>
+            <td data-label="Conectaeh">Conte&uacute;do vivo</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">Baixo retorno dos empregados</td>
+            <td data-label="Conectaeh">Participa&ccedil;&atilde;o cont&iacute;nua</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">Foco em documentos e comunicados</td>
+            <td data-label="Conectaeh">Foco em pessoas, comunidades e conversas</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">A empresa publica</td>
+            <td data-label="Conectaeh">A empresa e os empregados constroem</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">M&eacute;trica principal: acesso</td>
+            <td data-label="Conectaeh">M&eacute;trica principal: engajamento, participa&ccedil;&atilde;o e cultura</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">Conhecimento armazenado</td>
+            <td data-label="Conectaeh">Conhecimento circulando</td>
+          </tr>
+          <tr>
+            <td data-label="Intranet tradicional">Uso obrigat&oacute;rio ou burocr&aacute;tico</td>
+            <td data-label="Conectaeh">Uso por pertencimento, interesse e troca</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -457,6 +828,7 @@
 <section class="cta-section investor-cta">
   <div class="page-shell conectaeh-next-step">
     <h2 class="conectaeh-final-statement">O Conectaeh organiza as conex&otilde;es que fazem <em>o trabalho acontecer.</em></h2>
+    <p class="conectaeh-closing-line">Intranet informa. Rede social interna conecta. O Conectaeh faz a cultura circular.</p>
     <p class="section-tag">Pr&oacute;ximo passo</p>
     <h2>Quer entender como aplicar isso na sua empresa?</h2>
     <p>Envie seu contexto para uma conversa mais objetiva sobre cultura, comunica&ccedil;&atilde;o interna e engajamento.</p>
