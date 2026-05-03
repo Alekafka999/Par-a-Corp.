@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_private' . DIRECTORY_SEPARATOR . 'form-security.php';
+
 function redirect_with_status(string $status, string $reason = '', string $context = 'form', string $anchor = 'pilot-interest-form'): void
 {
     $location = 'index.html?' . rawurlencode($context) . '=' . rawurlencode($status);
@@ -16,6 +18,18 @@ function redirect_with_status(string $status, string $reason = '', string $conte
 }
 
 function redirect_to_presentation(): void
+{
+    $token = parca_create_download_token(private_storage_directory(), basename(__DIR__));
+
+    if ($token === null) {
+        redirect_with_status('error', 'token', 'download', 'presentation-download-form');
+    }
+
+    header('Location: submit-interest.php?download_token=' . rawurlencode($token), true, 303);
+    exit;
+}
+
+function serve_presentation_download(): void
 {
     $file = private_storage_directory() . DIRECTORY_SEPARATOR . 'downloads' . DIRECTORY_SEPARATOR . 'conectaeh' . DIRECTORY_SEPARATOR . 'conectaeh.pdf';
 
@@ -108,7 +122,7 @@ function save_submission(array $data): bool
         fputcsv($handle, ['timestamp', 'nome', 'email', 'whatsapp', 'empresa', 'perfil', 'contexto_empresa', 'comentarios', 'ip']);
     }
 
-    $written = fputcsv($handle, [
+    $written = fputcsv($handle, parca_csv_row([
         date('c'),
         $data['nome'],
         $data['email'],
@@ -118,7 +132,7 @@ function save_submission(array $data): bool
         $data['contexto_empresa'],
         $data['comentarios'],
         $data['ip'],
-    ]);
+    ]));
 
     fclose($handle);
 
@@ -144,7 +158,7 @@ function save_presentation_download(array $data): bool
         fputcsv($handle, ['timestamp', 'nome', 'email', 'whatsapp', 'empresa', 'perfil', 'contexto_empresa', 'comentarios', 'ip']);
     }
 
-    $written = fputcsv($handle, [
+    $written = fputcsv($handle, parca_csv_row([
         date('c'),
         $data['nome'],
         $data['email'],
@@ -154,7 +168,7 @@ function save_presentation_download(array $data): bool
         $data['contexto_empresa'] ?? '',
         $data['comentarios'],
         $data['ip'],
-    ]);
+    ]));
 
     fclose($handle);
 
@@ -174,7 +188,7 @@ function append_smtp_log(string $message, array $context = []): void
         '[' . date('c') . '] ' . $message,
     ];
 
-    foreach ($context as $key => $value) {
+    foreach (parca_safe_log_context($context) as $key => $value) {
         $lines[] = $key . ': ' . (string) $value;
     }
 
@@ -365,6 +379,16 @@ function send_via_php_mail(array $config, string $subject, string $body, ?string
     return true;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['download_token'])) {
+    $token = (string) ($_GET['download_token'] ?? '');
+
+    if (parca_consume_download_token(private_storage_directory(), basename(__DIR__), $token)) {
+        serve_presentation_download();
+    }
+
+    redirect_with_status('error', 'token', 'download', 'presentation-download-form');
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect_with_status('error', 'send');
 }
@@ -379,6 +403,35 @@ $comentarios = trim((string) ($_POST['comentarios'] ?? ''));
 $leadGoal = clean_text((string) ($_POST['lead_goal'] ?? 'pilot_interest'));
 $formVariant = clean_text((string) ($_POST['form_variant'] ?? ''));
 $isPresentationDownload = $leadGoal === 'presentation_download';
+$ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'indisponivel');
+
+if (!parca_honeypot_is_clean($_POST)) {
+    redirect_error($isPresentationDownload, 'spam');
+}
+
+if (!parca_rate_limit(private_storage_directory(), basename(__DIR__) . '-' . $leadGoal, $ip)) {
+    redirect_error($isPresentationDownload, 'rate');
+}
+
+if (!parca_fields_within_limits([
+    'nome' => $nome,
+    'email' => $email,
+    'whatsapp' => $whatsapp,
+    'cidade' => $cidade,
+    'perfil' => $perfil,
+    'contexto_empresa' => $contextoEmpresa,
+    'comentarios' => $comentarios,
+], [
+    'nome' => 120,
+    'email' => 180,
+    'whatsapp' => 40,
+    'cidade' => 160,
+    'perfil' => 160,
+    'contexto_empresa' => 3000,
+    'comentarios' => 3000,
+])) {
+    redirect_error($isPresentationDownload, 'too_long');
+}
 
 if ($isPresentationDownload && (
     $nome === '' ||
@@ -411,7 +464,6 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $emailHeader = str_replace(["\r", "\n"], '', $email);
 $safeBusinessContext = trim(str_replace("\r", '', $contextoEmpresa));
 $safeComments = trim(str_replace("\r", '', $comentarios));
-$ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'indisponivel');
 $smtpConfig = load_smtp_config();
 
 if ($isPresentationDownload) {

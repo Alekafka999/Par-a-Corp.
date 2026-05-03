@@ -302,36 +302,37 @@
 
     <form class="interest-form interest-form-compact presentation-download-form" id="presentation-download-form" action="/arthunt/submit-interest.php" method="post" accept-charset="UTF-8">
       <input type="hidden" name="lead_goal" value="presentation_download">
+      <label class="form-honeypot" aria-hidden="true">Site<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       <div class="form-status" id="presentation-form-status" hidden aria-live="polite"></div>
       <div class="form-grid">
         <label class="form-field">
           <span>Nome</span>
-          <input type="text" name="nome" autocomplete="name" required>
+          <input type="text" name="nome" autocomplete="name" maxlength="120" required>
         </label>
 
         <label class="form-field">
           <span>E-mail</span>
-          <input type="email" name="email" autocomplete="email" required>
+          <input type="email" name="email" autocomplete="email" maxlength="180" required>
         </label>
 
         <label class="form-field">
           <span>WhatsApp</span>
-          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="40" required>
         </label>
 
         <label class="form-field">
           <span>Empresa</span>
-          <input type="text" name="empresa" autocomplete="organization" placeholder="Empresa, institui&ccedil;&atilde;o ou cidade" required>
+          <input type="text" name="empresa" autocomplete="organization" placeholder="Empresa, institui&ccedil;&atilde;o ou cidade" maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Perfil</span>
-          <input type="text" name="perfil" placeholder="Investidor, parceiro, marca, administra&ccedil;&atilde;o p&uacute;blica..." required>
+          <input type="text" name="perfil" placeholder="Investidor, parceiro, marca, administra&ccedil;&atilde;o p&uacute;blica..." maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Coment&aacute;rios</span>
-          <textarea name="comentario" rows="3" placeholder="Conte rapidamente o motivo do interesse." required></textarea>
+          <textarea name="comentario" rows="3" placeholder="Conte rapidamente o motivo do interesse." maxlength="3000" required></textarea>
         </label>
       </div>
 

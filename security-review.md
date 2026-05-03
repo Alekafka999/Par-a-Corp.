@@ -2,6 +2,20 @@
 
 Data: 2026-05-02
 
+Atualizacao: 2026-05-03
+
+## Status da rodada de endurecimento
+
+As prioridades desta revisao foram aplicadas no codigo local:
+
+- Honeypot invisivel nos formularios de Conectaeh, MEiStation, Roca Hub e Art Hunt.
+- Rate limit simples por IP, projeto e tipo de formulario, armazenado em `_private/rate-limit`.
+- Limites server-side por campo e `maxlength` equivalente nos HTMLs.
+- Neutralizacao de CSV injection antes de `fputcsv`.
+- Logs de erro de e-mail sem nome, e-mail e WhatsApp; IP registrado como hash.
+- HSTS condicionado a HTTPS e CSP inicial em modo `Content-Security-Policy-Report-Only`.
+- Tokens temporarios de uso unico para downloads diretos de PDF em Conectaeh, MEiStation e Roca Hub.
+
 ## Resumo
 
 O site da Parca Corp esta com uma base de seguranca boa para um site institucional/estatico com formularios simples. A superficie de ataque e pequena: paginas HTML, arquivos `.htaccess`, formularios PHP de captacao, armazenamento em CSV e envio de e-mail.

@@ -106,36 +106,37 @@
     <form class="interest-form interest-form-compact presentation-download-form" id="presentation-download-form" action="/rocahub/submit-interest.php" method="post" accept-charset="UTF-8">
       <input type="hidden" name="lead_goal" value="presentation_download">
       <input type="hidden" name="return_page" value="en/index.html">
+      <label class="form-honeypot" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       <div class="form-status" id="presentation-form-status" hidden aria-live="polite"></div>
       <div class="form-grid">
         <label class="form-field">
           <span>Name</span>
-          <input type="text" name="nome" autocomplete="name" required>
+          <input type="text" name="nome" autocomplete="name" maxlength="120" required>
         </label>
 
         <label class="form-field">
           <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required>
+          <input type="email" name="email" autocomplete="email" maxlength="180" required>
         </label>
 
         <label class="form-field">
           <span>WhatsApp</span>
-          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="40" required>
         </label>
 
         <label class="form-field">
           <span>Company</span>
-          <input type="text" name="cidade" autocomplete="organization" placeholder="Company or city" required>
+          <input type="text" name="cidade" autocomplete="organization" placeholder="Company or city" maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Profile</span>
-          <input type="text" name="perfil" placeholder="Investor, partner, producer, press..." required>
+          <input type="text" name="perfil" placeholder="Investor, partner, producer, press..." maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Comments</span>
-          <textarea name="comentario" rows="3" placeholder="Share the reason for your interest." required></textarea>
+          <textarea name="comentario" rows="3" placeholder="Share the reason for your interest." maxlength="3000" required></textarea>
         </label>
       </div>
 

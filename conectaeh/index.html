@@ -698,36 +698,37 @@
 
     <form class="interest-form interest-form-compact presentation-download-form" id="presentation-download-form" action="/conectaeh/submit-interest.php" method="post" accept-charset="UTF-8">
       <input type="hidden" name="lead_goal" value="presentation_download">
+      <label class="form-honeypot" aria-hidden="true">Site<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       <div class="form-status" id="presentation-form-status" hidden aria-live="polite"></div>
       <div class="form-grid">
         <label class="form-field">
           <span>Nome</span>
-          <input type="text" name="nome" autocomplete="name" required>
+          <input type="text" name="nome" autocomplete="name" maxlength="120" required>
         </label>
 
         <label class="form-field">
           <span>E-mail</span>
-          <input type="email" name="email" autocomplete="email" required>
+          <input type="email" name="email" autocomplete="email" maxlength="180" required>
         </label>
 
         <label class="form-field">
           <span>WhatsApp</span>
-          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="40" required>
         </label>
 
         <label class="form-field">
           <span>Empresa</span>
-          <input type="text" name="cidade" autocomplete="organization" required>
+          <input type="text" name="cidade" autocomplete="organization" maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Perfil</span>
-          <input type="text" name="perfil" placeholder="RH, comunica&ccedil;&atilde;o interna, lideran&ccedil;a, investidor..." required>
+          <input type="text" name="perfil" placeholder="RH, comunica&ccedil;&atilde;o interna, lideran&ccedil;a, investidor..." maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Coment&aacute;rios</span>
-          <textarea name="comentarios" rows="3" placeholder="Conte rapidamente seu interesse." required></textarea>
+          <textarea name="comentarios" rows="3" placeholder="Conte rapidamente seu interesse." maxlength="3000" required></textarea>
         </label>
       </div>
 
@@ -836,41 +837,42 @@
     <form class="interest-form conectaeh-next-form" id="pilot-interest-form" action="/conectaeh/submit-interest.php" method="post" accept-charset="UTF-8">
       <input type="hidden" name="lead_goal" value="presentation_download">
       <input type="hidden" name="form_variant" value="full_pdf">
+      <label class="form-honeypot" aria-hidden="true">Site<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
       <div class="form-status" id="pilot-form-status" hidden aria-live="polite"></div>
       <div class="form-grid">
         <label class="form-field">
           <span>Nome</span>
-          <input type="text" name="nome" autocomplete="name" required>
+          <input type="text" name="nome" autocomplete="name" maxlength="120" required>
         </label>
 
         <label class="form-field">
           <span>E-mail</span>
-          <input type="email" name="email" autocomplete="email" required>
+          <input type="email" name="email" autocomplete="email" maxlength="180" required>
         </label>
 
         <label class="form-field">
           <span>WhatsApp</span>
-          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" required>
+          <input type="tel" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="40" required>
         </label>
 
         <label class="form-field">
           <span>Empresa</span>
-          <input type="text" name="cidade" autocomplete="organization" required>
+          <input type="text" name="cidade" autocomplete="organization" maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Perfil</span>
-          <input type="text" name="perfil" placeholder="RH, comunica&ccedil;&atilde;o interna, lideran&ccedil;a, investidor..." required>
+          <input type="text" name="perfil" placeholder="RH, comunica&ccedil;&atilde;o interna, lideran&ccedil;a, investidor..." maxlength="160" required>
         </label>
 
         <label class="form-field form-field-full">
           <span>Contexto da empresa</span>
-          <textarea name="comentario" rows="4" placeholder="Conte rapidamente o desafio de comunica&ccedil;&atilde;o, cultura ou engajamento." required></textarea>
+          <textarea name="comentario" rows="4" placeholder="Conte rapidamente o desafio de comunica&ccedil;&atilde;o, cultura ou engajamento." maxlength="3000" required></textarea>
         </label>
 
         <label class="form-field form-field-full">
           <span>Coment&aacute;rios</span>
-          <textarea name="comentarios" rows="3" placeholder="Deixe mais algum coment&aacute;rio, observa&ccedil;&atilde;o ou pergunta." required></textarea>
+          <textarea name="comentarios" rows="3" placeholder="Deixe mais algum coment&aacute;rio, observa&ccedil;&atilde;o ou pergunta." maxlength="3000" required></textarea>
         </label>
       </div>
 

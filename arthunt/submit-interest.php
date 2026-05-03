@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . '_private' . DIRECTORY_SEPARATOR . 'form-security.php';
+
 function redirect_with_status(string $status, string $reason = ''): void
 {
     $location = 'index.html?download=' . rawurlencode($status);
@@ -102,7 +104,7 @@ function save_presentation_request(array $data): bool
         fputcsv($handle, ['timestamp', 'nome', 'email', 'whatsapp', 'empresa', 'perfil', 'comentario', 'ip']);
     }
 
-    $written = fputcsv($handle, [
+    $written = fputcsv($handle, parca_csv_row([
         date('c'),
         $data['nome'],
         $data['email'],
@@ -111,7 +113,7 @@ function save_presentation_request(array $data): bool
         $data['perfil'],
         $data['comentario'],
         $data['ip'],
-    ]);
+    ]));
 
     fclose($handle);
 
@@ -128,7 +130,7 @@ function append_error_log(string $message, array $context = []): void
 
     $lines = ['[' . date('c') . '] ' . $message];
 
-    foreach ($context as $key => $value) {
+    foreach (parca_safe_log_context($context) as $key => $value) {
         $lines[] = $key . ': ' . (string) $value;
     }
 
@@ -164,6 +166,33 @@ $whatsapp = clean_text((string) ($_POST['whatsapp'] ?? ''));
 $empresa = clean_text((string) ($_POST['empresa'] ?? ''));
 $perfil = clean_text((string) ($_POST['perfil'] ?? ''));
 $comentario = trim((string) ($_POST['comentario'] ?? ''));
+$ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'indisponivel');
+
+if (!parca_honeypot_is_clean($_POST)) {
+    redirect_with_status('error', 'spam');
+}
+
+if (!parca_rate_limit(private_storage_directory(), basename(__DIR__) . '-presentation_download', $ip)) {
+    redirect_with_status('error', 'rate');
+}
+
+if (!parca_fields_within_limits([
+    'nome' => $nome,
+    'email' => $email,
+    'whatsapp' => $whatsapp,
+    'empresa' => $empresa,
+    'perfil' => $perfil,
+    'comentario' => $comentario,
+], [
+    'nome' => 120,
+    'email' => 180,
+    'whatsapp' => 40,
+    'empresa' => 160,
+    'perfil' => 160,
+    'comentario' => 3000,
+])) {
+    redirect_with_status('error', 'too_long');
+}
 
 if ($nome === '' || $email === '' || $whatsapp === '' || $empresa === '' || $perfil === '' || $comentario === '') {
     redirect_with_status('error', 'missing');
@@ -175,7 +204,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 $emailHeader = str_replace(["\r", "\n"], '', $email);
 $safeComment = trim(str_replace("\r", '', $comentario));
-$ip = (string) ($_SERVER['REMOTE_ADDR'] ?? 'indisponivel');
 
 $saved = save_presentation_request([
     'nome' => $nome,
