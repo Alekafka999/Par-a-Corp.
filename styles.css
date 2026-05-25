@@ -1045,6 +1045,84 @@ footer{
   color:var(--cream);
 }
 
+.arena-notice{
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:0.8rem 1.1rem;
+  align-items:center;
+  max-width:760px;
+  margin:0 0 1.75rem;
+  padding:1.15rem 1.2rem;
+  border:1px solid rgba(255,255,255,0.18);
+  border-radius:16px;
+  background:
+    linear-gradient(110deg,rgba(255,214,64,0.2),rgba(255,96,108,0.18) 34%,rgba(95,118,255,0.2) 68%,rgba(70,220,154,0.22)),
+    linear-gradient(135deg,rgba(16,39,62,0.96),rgba(11,26,46,0.94));
+  box-shadow:0 24px 70px rgba(0,0,0,0.26),0 0 0 1px rgba(255,255,255,0.04) inset;
+}
+
+.arena-notice::before{
+  content:'';
+  position:absolute;
+  inset:0 auto 0 0;
+  width:7px;
+  background:linear-gradient(180deg,#ffd640 0%,#ff606c 36%,#5f76ff 68%,#46dc9a 100%);
+}
+
+.arena-notice-label{
+  display:inline-flex;
+  grid-column:1/-1;
+  width:max-content;
+  padding:0.42rem 0.65rem;
+  border-radius:8px;
+  background:#ffd640;
+  color:#182133;
+  font-size:0.72rem;
+  font-weight:600;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  box-shadow:0 8px 22px rgba(255,214,64,0.22);
+}
+
+.arena-notice p{
+  margin:0;
+  color:var(--cream);
+  font-size:clamp(1rem,1.55vw,1.16rem);
+  line-height:1.55;
+}
+
+.arena-notice strong{
+  color:#ffffff;
+  font-weight:600;
+}
+
+.arena-notice a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  min-height:42px;
+  padding:0.72rem 1rem;
+  border-radius:8px;
+  background:#ffffff;
+  color:#0b1a2e;
+  font-size:0.82rem;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  box-shadow:0 14px 30px rgba(0,0,0,0.22);
+  transition:transform 0.2s,box-shadow 0.2s,background 0.2s;
+}
+
+.arena-notice a:hover{
+  transform:translateY(-1px);
+  background:#f6f0e6;
+  box-shadow:0 18px 36px rgba(0,0,0,0.28);
+}
+
 .investor-panel{
   padding:1.6rem;
   background:linear-gradient(180deg,rgba(15,32,53,0.92) 0%,rgba(9,19,33,0.96) 100%);
@@ -2220,6 +2298,13 @@ footer{
   .language-switcher{
     flex-wrap:wrap;
     margin-bottom:1.1rem;
+  }
+  .arena-notice{
+    grid-template-columns:1fr;
+    padding:1.05rem 1rem 1.1rem 1.15rem;
+  }
+  .arena-notice a{
+    width:100%;
   }
   .investor-hero-media{margin-bottom:1.8rem}
   .investor-hero-img{
